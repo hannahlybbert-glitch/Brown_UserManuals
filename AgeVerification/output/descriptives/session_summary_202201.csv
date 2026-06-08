@@ -1,0 +1,13 @@
+metric,value,pct_of_total
+Total Sessions,36407523,100.0
+Unique Machines,274994,100.0
+Unique Persons,285042,100.0
+Unique Websites (top_web_id),124171,100.0
+Unique Pattern IDs,171778,100.0
+Unique Categories,77,100.0
+Unique Subcategories,30,100.0
+XXX Adult Sessions,1102648,3.028626803312052
+XXX Adult Machines,42113,15.314152308777645
+XXX Adult Persons,39727,13.937244335922424
+XXX Adult Websites,12919,10.404200658768955
+XXX Adult Pattern IDs,12939,7.532396465205091

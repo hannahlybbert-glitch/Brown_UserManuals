@@ -1,0 +1,471 @@
+\documentclass{article}
+\usepackage{amsmath, amssymb}
+\usepackage{booktabs}
+\usepackage[margin=1in]{geometry}
+\usepackage{microtype}
+\usepackage{setspace}
+\onehalfspacing
+
+\title{Substitution Parameters from Age-Verification Event Studies}
+\author{}
+\date{}
+
+\begin{document}
+\maketitle
+
+\section{Setup}
+
+\paragraph{Goods.} We work with seven goods: six adult content categories ---
+PornHub~(PH), xHamster~(XH), xVideos~(XV), XNXX, Chaturbate~(CB), and a
+residual Other-XXX bundle~(OXXX) --- plus an outside option~(AO) covering all
+other uses of time.  Let $\mathcal{A} = \{\mathrm{PH, XH, XV, XNXX, CB,
+OXXX}\}$.  AO is constructed residually:
+\[
+  m_{\mathrm{AO},t}^m \;=\; 10080 - \sum_{j \in \mathcal{A}} m_{j,t}^m,
+\]
+where $10080 = 7 \times 24 \times 60$ is the number of minutes in a week.
+AO is the ``left-out'' good whose share is pinned by adding-up; we write
+equations only for the six adult goods.
+
+\paragraph{Time shares.} The outcome of interest is the time share
+\[
+  s_i^{mt} \;=\; \frac{m_i^{mt}}{10080},
+\]
+for machine~$m$, week~$t$, site~$i$.  Because 10080 is total available time
+(not total browsing time), the adult shares are small --- $s_A = \sum_{j \in
+\mathcal{A}} s_j \ll 1$ --- and AO absorbs nearly all of the budget.  This is a
+modeling choice; an alternative denominator is total browsing time, which would
+yield a different scaling of the Slutsky parameters but identical diversion
+ratios.
+
+\paragraph{Access costs.} Each site carries a shadow access cost $p_i$
+incorporating compliance burden, user friction, and voluntary withdrawal.
+Age-verification laws raise the access cost of affected sites.  The resulting
+change in access cost, $\Delta\ln p_i$, may differ across sites and is not
+directly observed; what we observe is the change in usage $\Delta s_i$.
+
+\paragraph{Notation.} $s_0 \equiv s_{\mathrm{AO}} = 1 - s_A$, $s_A \equiv
+\sum_{j \in \mathcal{A}} s_j$.
+
+\bigskip
+
+\section{The General Model: AIDS}
+
+\subsection{Specification}
+
+The Almost Ideal Demand System (Deaton and Muellbauer, 1980) relates changes in
+time shares to changes in log access costs.  Suppressing the total-time term
+--- we treat $T = 10080$ as fixed --- the linearized system is
+\begin{equation}\label{eq:aids}
+  \Delta s_i \;=\; \sum_{j=1}^{6} \gamma_{ij}\, \Delta \ln p_j,
+  \qquad i \in \mathcal{A}.
+\end{equation}
+The $6 \times 6$ matrix $\Gamma = [\gamma_{ij}]$ is the Slutsky substitution
+matrix for time shares.  Three restrictions apply:
+\begin{align*}
+  \text{Symmetry:}&\quad \gamma_{ij} = \gamma_{ji} \\
+  \text{Adding-up:}&\quad \sum_{i=0}^{6} \gamma_{ij} = 0 \quad\forall\, j
+    \quad\text{(sum includes AO)} \\
+  \text{Homogeneity:}&\quad \sum_{j=1}^{6} \gamma_{ij} = 0 \quad\forall\, i.
+\end{align*}
+Together these reduce the $6 \times 6$ system to $\binom{6}{2} = 15$ free
+parameters.
+
+\subsection{Interpretable objects}
+
+We do \emph{not} normalize the diagonal.  The change in access cost $\Delta\ln
+p_j$ for any shocked site $j$ is unobserved, but this is not a problem for
+the objects we care about.
+
+\medskip\noindent\textbf{Diversion ratios.}  When site~$j$'s access cost
+rises by $\Delta\ln p_j$, site~$j$'s own share falls by $|\gamma_{jj}|
+\cdot \Delta\ln p_j$ and site~$i$'s share rises by $\gamma_{ij} \cdot \Delta
+\ln p_j$.  The fraction of $j$'s lost share that flows to~$i$ is
+\begin{equation}\label{eq:dr}
+  DR_{j \to i} \;=\; -\frac{\gamma_{ij}}{\gamma_{jj}}.
+\end{equation}
+The unknown $\Delta\ln p_j$ cancels.  Slutsky symmetry ($\gamma_{ij} =
+\gamma_{ji}$) does \emph{not} imply symmetric diversion ratios:
+$DR_{j \to i}/DR_{i \to j} = |\gamma_{ii}|/|\gamma_{jj}|$, which equals one
+only when own-price effects are equal.
+
+\medskip\noindent\textbf{Cross-price elasticities.}  $\varepsilon_{ij} =
+\gamma_{ij}/s_i$ measures the percentage-point change in site~$i$'s share per
+unit increase in $\ln p_j$, normalized by~$i$'s baseline share.
+
+\medskip\noindent\textbf{Allen--Uzawa elasticity.}  $\sigma_{ij} = \gamma_{ij}/
+(s_i s_j)$ is a symmetric measure of substitutability; under nested logit it
+equals $(1/\lambda - s_0)/s_A$ for pairs in the same nest.
+
+\medskip\noindent Adding-up applies to diversion ratios: summing across all
+sites including AO,
+\[
+  \sum_{i \neq j} DR_{j \to i} + DR_{j \to \mathrm{AO}} \;=\; 1,
+\]
+so diversion to adult substitutes plus diversion to the outside option sum to
+one.  A sum less than one in the data indicates either declining total time
+(the fixed-$T$ assumption is violated) or measurement error.
+
+\bigskip
+
+\section{The Simple Model: Nested Logit}
+
+\subsection{Utility and choice probabilities}
+
+We adopt the McFadden (1978) nested logit with two nests: the adult nest
+$\mathcal{A}$ and the singleton outside option.  Consumers draw utility
+\[
+  U_i \;=\; V_i + \varepsilon_i, \qquad i \in \mathcal{A},
+  \qquad U_0 \;=\; V_0 + \varepsilon_0,
+\]
+where the $\varepsilon_i$ for $i \in \mathcal{A}$ follow a generalized extreme
+value (GEV) distribution with dissimilarity parameter $\lambda \in (0,1]$.
+Standard nested logit yields conditional and marginal share equations:
+\begin{equation}\label{eq:within}
+  s_{i|A} \;=\; \frac{\exp(V_i/\lambda)}{\displaystyle\sum_{k \in \mathcal{A}}
+    \exp(V_k/\lambda)},
+  \qquad i \in \mathcal{A},
+\end{equation}
+\begin{equation}\label{eq:across}
+  s_A \;=\; \frac{D_A^\lambda}{1 + D_A^\lambda},
+  \qquad
+  D_A \;=\; \sum_{k \in \mathcal{A}} \exp(V_k/\lambda).
+\end{equation}
+The unconditional share is $s_i = s_{i|A} \cdot s_A$.
+
+\subsection{Interpretation of $\lambda$}
+
+$\lambda$ is the \emph{dissimilarity parameter} (also called the nesting
+coefficient).  It governs the degree of within-nest correlation in
+unobserved utility: lower $\lambda$ means higher correlation and stronger
+preference clustering within the adult nest.
+
+\begin{itemize}
+  \item $\lambda = 1$: standard multinomial logit.  Independence of irrelevant
+    alternatives (IIA) holds globally.  Adult sites substitute for each other
+    no more than for non-adult time.
+  \item $\lambda \to 0$: within-nest correlation approaches one.  Adult sites
+    are nearly perfect substitutes; a shock to one adult site sends almost
+    all diverted demand to other adult sites.
+  \item $\lambda = 0.217$ (our estimate): strong within-nest preference
+    correlation.  Adult sites are substantially closer substitutes for each
+    other than for the outside option, but imperfect.
+\end{itemize}
+
+Define the composite substitution scalar:
+\begin{equation}\label{eq:phi_lambda}
+  \varphi_\lambda \;\equiv\; \frac{1}{\lambda} - s_0
+  \;\approx\; \frac{1 - \lambda}{\lambda}
+  \qquad (\text{since } s_0 \approx 1).
+\end{equation}
+$\varphi_\lambda$ replaces the $\phi \equiv \sigma_2 - \sigma_1$ combination
+from a nested CES.  Like $\phi$, it measures excess within-adult substitution
+beyond the IIA baseline: $\varphi_\lambda = 0$ when $\lambda = 1$ (IIA), and
+$\varphi_\lambda \to \infty$ as $\lambda \to 0$.
+
+\subsection{Slutsky matrix}
+
+Linearizing the nested logit share equations around the baseline yields the
+following Slutsky share derivatives:
+
+\medskip
+\begin{center}
+\renewcommand{\arraystretch}{1.5}
+\begin{tabular}{lll}
+  \toprule
+  Pair & Formula & Sign ($\lambda < 1$) \\
+  \midrule
+  $i \neq j$, both $\in \mathcal{A}$ &
+    $\displaystyle\gamma_{ij} = \frac{s_i s_j}{s_A}\,\varphi_\lambda$ & $>0$ \\[6pt]
+  $i \in \mathcal{A}$, $j = \mathrm{AO}$ &
+    $\gamma_{i,0} = s_i s_0$ & $>0$ \\[4pt]
+  $i \in \mathcal{A}$ (own price) &
+    $\displaystyle\gamma_{ii}
+     = -\frac{s_i}{\lambda} + \frac{s_i^2}{s_A}\,\varphi_\lambda$ & $<0$ \\
+  \bottomrule
+\end{tabular}
+\end{center}
+
+\medskip\noindent These satisfy symmetry and adding-up.  The within-adult
+cross-price effects $\gamma_{ij}$ have the same $s_i s_j / s_A$ factorization
+as in nested CES, with $\varphi_\lambda$ playing the role of $\phi$.
+
+\subsection{Diversion ratios under nested logit}
+
+Applying equation~\eqref{eq:dr} with $i \neq j$, both $\in \mathcal{A}$:
+\begin{equation}\label{eq:dr_nl}
+  DR_{j \to i} \;=\;
+  \frac{(s_i s_j / s_A)\,\varphi_\lambda}
+       {(s_j/\lambda) - (s_j^2/s_A)\,\varphi_\lambda}
+  \;=\;
+  \frac{s_i\,\varphi_\lambda}
+       {s_A/\lambda - s_j\,\varphi_\lambda}.
+\end{equation}
+The numerator is proportional to $s_i$; the denominator does not depend on
+$i$.  This yields the same testable proportionality restriction as nested CES:
+
+\medskip
+\begin{quote}
+  \textbf{Within-adult proportionality.}
+  For any $i, k \in \mathcal{A} \setminus \{j\}$,
+  \begin{equation}\label{eq:prop}
+    \frac{DR_{j \to i}}{DR_{j \to k}} \;=\; \frac{s_i}{s_k}.
+  \end{equation}
+  Relative diversion from a shutdown of site~$j$ to competing adult sites
+  is proportional to their pre-ban time shares.
+\end{quote}
+
+\medskip\noindent Equation~\eqref{eq:prop} holds regardless of $\lambda$,
+the shock magnitude, or which adult site shuts down.
+
+Diversion to the outside option:
+\begin{equation}
+  DR_{j \to \mathrm{AO}} \;=\;
+  \frac{s_A s_0}{s_A/\lambda - s_j\,\varphi_\lambda}.
+\end{equation}
+The ratio of total within-adult diversion to outside-option diversion
+identifies $\varphi_\lambda$:
+\begin{equation}\label{eq:ratio}
+  \frac{\displaystyle\sum_{i \neq j,\,i \in \mathcal{A}} DR_{j \to i}}
+       {DR_{j \to \mathrm{AO}}}
+  \;=\;
+  \frac{(s_A - s_j)\,\varphi_\lambda}{s_A s_0}
+  \;\approx\;
+  \frac{1 - \lambda}{\lambda},
+\end{equation}
+where the approximation uses $s_0 \approx 1$ and $s_j \ll s_A$.  The
+right-hand side involves only the single primitive $\lambda$, directly
+identified from the data without knowing shock magnitudes.
+
+\bigskip
+
+\section{Identification Given Simultaneous Shocks}
+
+\subsection{Setup}
+
+Age-verification laws generate three simultaneous access-cost shocks,
+each of unknown magnitude:
+\begin{enumerate}
+  \item \textbf{PH:} PornHub's access cost rises by $\Delta\ln p_{\mathrm{PH}}
+    > 0$ (unobserved).
+  \item \textbf{XH:} xHamster's access cost rises by $\Delta\ln p_{\mathrm{XH}}
+    > 0$ (unobserved), roughly simultaneously with PH.
+  \item \textbf{OXXX:} Some sites within the Other-XXX bundle face the same
+    mandate; the bundle's effective access cost rises by $\Delta\ln
+    p_{\mathrm{OXXX}} > 0$ (unobserved).
+\end{enumerate}
+All three shocks are of unknown magnitude.  We do not observe the price
+changes; we observe only the resulting changes in time shares $\Delta s_i$.
+The event study for site $i$ estimates the composite shock:
+\begin{equation}\label{eq:obs}
+  \Delta s_i
+  \;=\; \gamma_{i,\mathrm{PH}} \cdot \Delta\ln p_{\mathrm{PH}}
+  \;+\; \gamma_{i,\mathrm{XH}} \cdot \Delta\ln p_{\mathrm{XH}}
+  \;+\; \gamma_{i,\mathrm{OXXX}} \cdot \Delta\ln p_{\mathrm{OXXX}}
+  \;+\; \varepsilon_i.
+\end{equation}
+This holds for every site $i \in \mathcal{A} \cup \{\mathrm{AO}\}$, including
+the three directly shocked sites.
+
+\subsection{Diversion ratios cancel the unknown shock magnitudes}
+
+Suppose geographic variation allows us to isolate the shock to site $j$:
+for states where only $j$ faces the mandate, the event study yields
+$\hat\beta_i^j \approx \gamma_{ij} \cdot \Delta\ln p_j$ for each site $i$.
+The diversion ratio is then
+\begin{equation}\label{eq:dr_estimable}
+  \widehat{DR}_{j \to i}
+  \;=\; \frac{\hat\beta_i^j}{\left|\hat\beta_j^j\right|}
+  \;=\; \frac{\gamma_{ij} \cdot \Delta\ln p_j}
+             {|\gamma_{jj}| \cdot \Delta\ln p_j}
+  \;=\; \frac{\gamma_{ij}}{|\gamma_{jj}|},
+\end{equation}
+and $\Delta\ln p_j$ cancels.
+
+\subsection{Problem 1: PH and XH are simultaneously shocked}
+
+If PH and XH are always banned in the same states at the same time, the
+event study produces a single combined coefficient $\hat\beta_i^{\mathrm{combined}}
+\approx \gamma_{i,\mathrm{PH}} \cdot \Delta\ln p_{\mathrm{PH}} +
+\gamma_{i,\mathrm{XH}} \cdot \Delta\ln p_{\mathrm{XH}}$.  We cannot separately
+identify the PH and XH columns of the Slutsky matrix; only their
+shock-weighted average is estimable.
+
+\medskip\noindent\textit{What nested logit buys here.}  Under nested logit, PH and
+XH are in the same nest with the same within-adult proportionality structure.
+The ratio of diversion to XV versus XNXX satisfies
+$DR_{j \to \mathrm{XV}}/DR_{j \to \mathrm{XNXX}} = s_{\mathrm{XV}}/s_{\mathrm{XNXX}}$
+for $j \in \{\mathrm{PH},\mathrm{XH}\}$ --- the same for both shocked sites.
+Thus the proportionality test~\eqref{eq:prop} and the identification of
+$\lambda$ from equation~\eqref{eq:ratio} remain valid under the combined shock.
+
+\medskip\noindent\textit{What geographic variation buys.}  States that ban
+only PH (not XH) and states that ban only XH (not PH) separately identify the
+PH and XH columns of the Slutsky matrix.
+
+\subsection{Problem 2: OXXX is simultaneously shocked}
+
+The OXXX shock contaminates the reduced-form coefficients for sites
+that didn't face the mandate directly.  Under nested logit,
+$\gamma_{i,\mathrm{OXXX}} = (s_i s_{\mathrm{OXXX}}/s_A)\varphi_\lambda$,
+which scales with $s_i$ for all $i \in \{$XV, XNXX, CB$\}$.  The OXXX term
+therefore adds the same proportional bias to all three non-shocked adult
+sites.  Because the ratios $\Delta s_{\mathrm{XV}}/\Delta s_{\mathrm{XNXX}}$
+are unaffected by this proportional contamination, the proportionality
+test~\eqref{eq:prop} and the ratio in equation~\eqref{eq:ratio} remain valid.
+The \emph{level} of $\varphi_\lambda$ (and hence $\lambda$) is, however,
+biased upward by OXXX contamination.
+
+\subsection{Summary: what is identified}
+
+\begin{center}
+\renewcommand{\arraystretch}{1.3}
+\begin{tabular}{p{5.1cm} p{4.1cm} p{4.1cm}}
+  \toprule
+  Object & Without geo.\ variation & With geo.\ variation \\
+  \midrule
+  Proportionality test $DR_{j\to i}/DR_{j\to k} = s_i/s_k$
+  & Yes (nested logit prediction holds under combined shock)
+  & Yes \\[4pt]
+  Dissimilarity parameter $\lambda$
+  & Yes, directly identified (from ratio of within-adult to AO diversion)
+  & Yes \\[4pt]
+  $\lambda$ in levels (not derived combination)
+  & Yes (single primitive, no normalization needed)
+  & Yes \\[4pt]
+  PH vs.\ XH columns separately (AIDS)
+  & No (only shock-weighted sum identified)
+  & Yes (PH-only and XH-only states) \\[4pt]
+  9 of 15 AIDS parameters
+  & No
+  & Yes (PH and XH columns via Slutsky symmetry) \\
+  \bottomrule
+\end{tabular}
+\end{center}
+
+\bigskip
+
+\section{Estimation with the Machine-Week Panel}
+
+\subsection{Data structure}
+
+The existing analysis uses a stacked TWFE panel of machine $m \times$
+cohort $k \times$ week $t$ observations, with dependent variable
+\texttt{win\_min}: winsorized minutes per machine per week, by site.
+There are approximately 14.4 million machine-week observations across 14
+state cohorts.  For the demand system, we construct
+\[
+  s_i^{mtk} \;=\; \frac{\texttt{win\_min}_{i,mtk}}{10080},
+  \qquad
+  s_0^{mtk} \;=\; 1 - \sum_{j \in \mathcal{A}} s_j^{mtk}.
+\]
+
+\subsection{Option 1: Two-step minimum distance}
+
+\emph{Step 1.} Run the stacked TWFE event study for each site $j$ separately,
+including separate treatment indicators $D_{stk}^j$ for each shocked site
+($j \in \{$PH, XH, OXXX$\}$), leveraging geographic variation in which
+sites are banned and when.  This yields reduced-form coefficients
+$\hat\beta_i^j$ for each outcome site $i$ and each shocked site $j$.
+
+\emph{Step 2.} Compute diversion ratios and structural parameters.
+The diversion ratio from $j$ to $i$ follows equation~\eqref{eq:dr_estimable}.
+The nested logit identification equation is
+\begin{equation}\label{eq:ident}
+  \frac{\beta_i}{\beta_{\mathrm{AO}}}
+  \;=\; \frac{s_i}{s_A} \cdot \frac{1-\lambda}{\lambda},
+\end{equation}
+solving directly for $\lambda$:
+\begin{equation}\label{eq:lambda}
+  \lambda \;=\; \frac{1}{1 + \displaystyle\frac{\beta_i}{\beta_{\mathrm{AO}}}
+    \cdot \frac{s_A}{s_i}}.
+\end{equation}
+The proportionality restriction~\eqref{eq:prop} is
+testable by comparing $\hat\beta_i^j/\hat\beta_k^j$ to $s_i/s_k$.
+
+\subsection{Option 2: Seemingly Unrelated Regressions (SUR)}
+
+Stack all six adult site share equations in a joint system:
+\begin{equation}\label{eq:sur}
+  s_{mtk}^i \;=\; \alpha_{mk}^{i} + \alpha_{tk}^{i}
+  + \sum_{j \in \mathcal{S}} \gamma_{ij} \cdot D_{stk}^j
+  + \varepsilon_{mtk}^{i},
+\end{equation}
+where $\mathcal{S} = \{$PH, XH, OXXX$\}$.  Estimate jointly imposing:
+\begin{itemize}
+  \item \emph{Slutsky symmetry}: $\gamma_{ij}$ in equation $i$ equals
+    $\gamma_{ji}$ in equation $j$.
+  \item \emph{Nested logit}: $\gamma_{ij} = (s_i s_j/s_A)\,\varphi_\lambda$
+    for $i \neq j \in \mathcal{A}$, collapsing the 15-parameter system to
+    \textbf{one parameter} $\lambda$ (not two as in nested CES).
+\end{itemize}
+The SUR uses the full panel variation and allows formal likelihood-ratio or
+Wald tests of the nested logit restrictions against the unrestricted AIDS.
+
+\paragraph{Precision from the panel.}  Machine fixed effects $\alpha_{mk}^{i}$
+absorb time-invariant taste differences.  Within-machine pre/post
+variation is the key signal of substitution.
+
+\paragraph{Heterogeneity across user types.}  The SUR framework provides a
+natural common scale for comparing substitution patterns across user groups.
+In the SUR, all equations use time shares, so the estimated $\lambda$ and
+implied diversion ratios are dimensionless and directly comparable across groups.
+
+\subsection{Heterogeneous nested logit}
+
+Let $g \in \mathcal{G}$ index a person type, and let
+$g(m)$ denote the type of machine $m$.  The type-specific SUR is:
+\begin{equation}\label{eq:sur_het}
+  s_{mtk}^{ig} \;=\; \alpha_{mk}^{ig} + \alpha_{tk}^{ig}
+  + \sum_{j \in \mathcal{S}} \gamma_{ij}^g \cdot D_{stk}^j
+  + \varepsilon_{mtk}^{ig}.
+\end{equation}
+
+Under the type-specific nested logit, the structural Slutsky parameters are:
+\begin{equation}\label{eq:nl_het}
+  \gamma_{ij}^g \;=\; \frac{s_i^g\, s_j^g}{s_A^g}\,\varphi_\lambda^g,
+  \qquad
+  \varphi_\lambda^g \;=\; \frac{1-\lambda^g}{\lambda^g},
+  \qquad i \neq j \in \mathcal{A},
+\end{equation}
+where $s_i^g$ is the pre-ban time share for type $g$ and $\lambda^g$ is the
+type-$g$ dissimilarity parameter.  The identification equation becomes
+\begin{equation}\label{eq:lambda_het}
+  \lambda^g \;=\; \frac{1}{1 + \displaystyle\frac{\beta_i^g}{\beta_{\mathrm{AO}}^g}
+    \cdot \frac{s_A^g}{s_i^g}},
+\end{equation}
+directly identifying $\lambda^g$ for each group from existing heterogeneity
+event studies and group-specific pre-ban shares.
+
+\paragraph{What the type heterogeneity captures.}  Two sources of
+between-type variation enter equation~\eqref{eq:nl_het}:
+\begin{enumerate}
+  \item \emph{Structural heterogeneity}: $\lambda^g \neq \lambda$.  Different
+    types have genuinely different within-nest preference correlation.  Heavy
+    users may have lower $\lambda^g$ (stronger within-adult correlation) while
+    occasional users have $\lambda^g$ closer to 1.
+  \item \emph{Composition heterogeneity}: even if $\lambda^g = \lambda$
+    for all $g$, the Slutsky matrix $\Gamma^g$ varies across types because
+    baseline shares $s_i^g$ differ.
+\end{enumerate}
+
+\paragraph{Testable restrictions.}
+\begin{itemize}
+  \item $H_0{:}\ \lambda^g = \lambda\ \forall g$ --- dissimilarity parameter
+    is homogeneous across types.  Test via Wald test on the interaction of
+    $D_{stk}^j$ with type dummies in the SUR.
+  \item $H_0{:}\ DR_{j\to i}^g / DR_{j\to k}^g = s_i^g/s_k^g$ ---
+    within-adult proportionality holds for type $g$.
+\end{itemize}
+
+\paragraph{Example economic hypotheses.}
+\begin{itemize}
+  \item Heavy past-XXX users likely have low $\lambda^g$: strong preferences
+    over the adult nest mean within-adult sites are close substitutes.
+  \item Occasional users likely have $\lambda^g$ closer to 1: adult
+    consumption is more easily displaced to the outside option.
+  \item Users with children in the household may have intermediate $\lambda^g$
+    generally with similar within-adult correlation when they do access content.
+\end{itemize}
+
+\end{document}

@@ -1,0 +1,12 @@
+metric,value
+devices_with_xxx,11283.0
+mean_total_minutes,186.3800348607049
+median_total_minutes,46.983333333333334
+p25_total_minutes,10.274999999999999
+p75_total_minutes,171.28333333333336
+p95_total_minutes,820.7883333333333
+max_total_minutes,11245.666666666666
+mean_sessions_per_device,31.02322077461668
+median_sessions_per_device,12.0
+mean_minutes_per_session,5.741451150197534
+median_minutes_per_session,3.6700000000000004

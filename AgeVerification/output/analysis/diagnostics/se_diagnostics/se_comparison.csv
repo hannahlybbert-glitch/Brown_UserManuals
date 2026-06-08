@@ -1,0 +1,3 @@
+"estimator","beta_longterm","se","moulton_factor","n_clusters","n_obs","n_eff","icc_implied"
+"Clustered (state)",-0.0291684113230929,0.00157095145091391,2.15126247032353,38,15479856,3344877,8.90587655594234e-06
+"Heteroskedastic-robust",-0.0291684113230929,0.000730246296109864,1,NA,15479856,15479856,NA

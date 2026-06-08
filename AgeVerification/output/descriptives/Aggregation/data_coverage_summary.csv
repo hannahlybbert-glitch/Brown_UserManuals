@@ -1,0 +1,2 @@
+total_observations,n_states,n_weeks,n_categories,date_start,date_end,avg_machines_per_state_week,avg_persons_per_state_week
+52752,48,157,7,2022-01-01,2025-01-03,1972.2197262663026,2167.4431301182894

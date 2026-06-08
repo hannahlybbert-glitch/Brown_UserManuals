@@ -1,0 +1,27 @@
+| State | Date Effective | Date Pornhub Shutdown |
+| --- | --- | --- |
+| Louisiana | January 1, 2023 | January 1, 2023 |
+| Utah | May 3, 2023 | May 1, 2023 |
+| Mississippi | July 1, 2023 | June 29, 2023 |
+| Virginia | July 1, 2023 | June 29, 2023 |
+| Arkansas | July 31, 2023 | July 28, 2023 |
+| Montana | January 1, 2024 | December 28, 2023 |
+| North Carolina | January 1, 2024 | December 28, 2023 |
+| Texas | September 19, 2023 | March 14, 2024 |
+| Kansas | July 1, 2024 | June 28, 2024 |
+| Indiana | August 16, 2024 | June 28, 2024 |
+| Idaho | July 1, 2024 | June 28, 2024 |
+| Kentucky | July 15, 2024 | July 10, 2024 |
+| Nebraska | July 18, 2024 | July 15, 2024 |
+| Alabama | October 1, 2024 | September 26, 2024 |
+| Oklahoma | November 1, 2024 | November 1, 2024 |
+| Florida | January 1, 2025 | January 1, 2025 |
+| South Carolina | January 1, 2025 | January 1, 2025 |
+| Tennessee | January 13, 2025 | January 14, 2025 |
+| Wyoming | July 1, 2025 | June 30, 2025 |
+| South Dakota | July 1, 2025 | June 30, 2025 |
+| North Dakota | August 1, 2025 | June 30, 2025 |
+| Georgia | July 1, 2025 | July 1, 2025 |
+| Arizona | September 26, 2025 | September 26, 2025 |
+| Ohio | September 30, 2025 | September 30, 2025 |
+| Missouri | November 30, 2025 | December 1, 2025 |

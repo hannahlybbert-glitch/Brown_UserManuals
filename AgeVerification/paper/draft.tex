@@ -1,0 +1,244 @@
+% !TEX root = draft.tex
+\input{Preamble_restud}
+\usepackage{tikz}
+\usepackage{appendix} 
+\usepackage{chngcntr}
+
+% Hi!
+
+% Define input path 
+% \makeatletter
+% \def\input@path{{../_output}}
+% \makeatother
+
+% \input{../_output/scalars}
+% NOTE: WE WANT TO HAVE NUMBERS (like, sample size) DEFINED PROGRAMMATICALLY AND AUTOMATICALLY READ INTO THE PAPER.
+
+\usepackage[utf8]{inputenc}
+\usepackage{adjustbox}
+\usepackage{caption}
+\usepackage{subfiles}
+
+\usepackage{siunitx}
+\newcolumntype{d}{S[
+    input-open-uncertainty=,
+    input-close-uncertainty=,
+    parse-numbers = false,
+    table-align-text-pre=false,
+    table-align-text-post=false
+ ]}
+ 
+% Adjust spacing of lines
+% \usepackage{setspace} 
+% \setstretch{1.25}
+
+%\usepackage{sort}
+%\usepackage[round]{natbib}  % Remove the duplicate import of natbib package
+%\setcitestyle{aysep={}} 
+
+%% Cites
+% Todo: use citealt instead of citep
+\bibliographystyle{apalike}
+\setlength{\bibsep}{0pt}
+
+\title{The Impact of Age Verification Laws on Internet Pornography Consumption}  
+
+\author{Matthew Brown\thanks{Department of Economics, University of Chicago. Email: mattbrownecon@uchicago.edu} \quad Emily Davis\thanks{Department of Economics, University of Notre Dame. Email: edavis25@nd.edu} \quad Devin Pope\thanks{Booth School of Business, University of Chicago. Email: devin.pope@ChicagoBooth.edu}}
+\date{\today}
+ 
+\renewcommand \thepart{}
+\renewcommand \partname{} 
+
+\begin{document}
+
+\doparttoc % Tell minitoc to generate a toc for the parts
+\faketableofcontents % Run a fake tableofcontents command for the partocs
+
+% \part{} % Start the document part
+% \parttoc % Insert the document TOC
+
+\maketitle
+
+\vspace{-20px}
+% \thispagestyle{empty}
+\begin{abstract}
+TK
+\end{abstract}
+
+\clearpage
+\pagenumbering{arabic} 
+ 
+\section{Introduction}
+
+% Apply single spacing
+% \singlespacing
+% BIBLIOGRAPHY HERE.
+\section{Background}
+
+\subsection{Pornography in the 21st Century}
+
+Porn is mostly online now. Cite some numbers that document descriptively how many people view online porn (either from surveys).
+
+There are lots of ways to access adult websites. The most common way is to use free ``tube sites,'' some of which are more regulated than others. There are also other free websites and paid websites. Finally, there is a great deal of adult content on websites like X and Reddit [we need this para to set up the discussion of leakage later].
+
+There is tremendous disagreement about whether pornography consumption is socially harmful or beneficial. [Give some perspectives from all sides, emphasizing what is ``new'' about internet porn]. Our paper does not take a stand on this normative debate. Instead, we document positive facts about how public policy affects pornography consumption, which can useful for policymakers with variety of normative perspectives.
+
+\subsection{Age Verification and Access to Pornography}
+
+Starting in 2023, U.S. states have implemented laws that ... [description of the laws].
+
+Description of how firms responded, a la Emily's draft.
+
+Whether these laws accomplish their stated goals depends on empirical facts about consumer responses. [Describe in further detail]. Our empirical analysis is designed to answer these questions.
+
+\section{Data and Descriptive Statistics}
+
+\subsection{Internet activity data}
+
+Our primary dataset is an anonymized panel of individual-level internet browsing activity from Comscore.
+
+[Much more about Comscore.]
+
+We supplement our browsing activity panel with data from Google Trends on keyword search intensity across time and state. While our browsing activity panel contains rich individual-level detail, it is limited to a sample of users who consented to join the Comscore panel. By contrast, the keyword search intensity data from Google Trends is computed using data from all users of Google Search in a given state and time period. [... this is good for validation].
+
+We can run a regression like this with state-website-time level data:
+\begin{gather}
+    ComscoreTraffic_{sjt} = \beta GoogleTrends_{sjt} + \text{Various FE combinations} + \varepsilon_{sj}
+\end{gather}
+
+The $\beta$ and the within-$R^2$ from this kind of regression will tell us about how closely the Comscore data coincides with browsing activity data from a representative sample. Table in Appendix.
+
+[MULTIPLE DESCRIPTIVE TABLES AND FIGURES ABOUT COMSCORE HERE. I think we can decide on the final descripitve facts \emph{after} we see the main empirical results.]
+
+\subsection{Age verification laws}
+
+[Table here with columns: State and date of law implementation]
+
+[Interrupted time series figure for Texas here.]
+
+\section{Empirical Strategy}
+
+We implement a stacked event study design to measure the impact of disruptions to Pornhub access on browsing activity [Baker et al. 2022]. 
+
+Specifically, for each of the fifteen treated states $s$, we define an event-time $t=0$ to be the week in which Pornhub access was disrupted. For each event, we then construct an unbalanced panel of individual-week observations for those who appear in the Comscore data at any point during a 25-week window around the event, indexing week by relative time $t \in \{-16, 8\}$.\footnote{These state panels are unbalanced panels in the sense that some individuals drop out of the panel or join the panel during the event window. Imposing a balanced panel restriction over our 25-week time horizon would drop 94\% of observations, due to churn in the Comscore data. The TWFE specification in equation (k) deals with imbalance by absorbing individual fixed effects. TODO: We show in appendix figure that ``dropping out'' does not change around events.} % Source for 94% is Matt's computation on march 6.
+We restrict these state-level panels to individuals living in the treated state $s$ and individuals living in a comparison group of states that had not implemented an age verification law as of December 2025 [CHECK THIS]. Then, we stack the fifteen event-level panels into a single panel with observations at the individual $i$, policy event $e$, and relative time $t$ level.
+
+Our analyses an outcome variables $y_{ist}$ as a summary statistic of individual $i$'s activity on website $j$ at relative time $t$ compared to policy event $e$.
+\begin{align}
+    y_{ite} = \sum_{\tau \neq -1} \beta_{\tau} \cdot \text{Treated}_{ie} \cdot \mathbf{1} \{t = \tau\}+ \alpha_{ie} + \delta_{te} + \varepsilon_{ite} \label{eqn:event_study}
+\end{align}
+
+Here, [Gloss on FEs and coefficients]. 
+
+We present coefficient estimates from specificaiton \ref{eqn:event_study} in an event study plot to visually depict how browsing activity evolves before and after the event for treated versus control states. To improve power and compactly summarize results across many dependent variables and subsamples, we also implement the following pooled specification:
+\begin{align}
+    y_{ite} &= \beta_\text{Pre} \cdot \text{Treated}_{ie} \cdot \mathbf{1}\{t \in [-16, -5]\} + \beta_\text{ShortTerm} \cdot \text{Treated}_{ie} \cdot \mathbf{1}\{t \in [0,3]\} \nonumber \\ 
+    &+ \beta_\text{LongTerm} \cdot \text{Treated}_{ie} \cdot \mathbf{1}\{t \in [4, 8]\} + \alpha_{ie} + \delta_{te} + \varepsilon_{ite} \label{eqn:pooled_event_study} 
+\end{align}
+
+Here, [Gloss on Coefficient interpretation].
+
+Finally, we implement specifications that study how treatment effects vary across types of individuals $i$. Specifically, we modify the pooled event study specification so that the treatment effects $\beta_{k}$ for each event horizon $k \in \{\text{Pre}, \text{ShortTerm}, \text{LongTerm}\}$ may vary across individuals:
+\begin{align}
+    \beta_{k,i} &= \gamma_{0}^{k} + \sum_{d=1}^{10} \gamma^{\text{Vol}}_{d,k} \cdot \mathbf{1}\{\text{Past XXX Volume Quintile}_i = d\} \nonumber \\ %+ \sum_{j \in \mathcal{J}} \gamma^\text{Visits $j$}_{k} \cdot \text{Past Visitor of Site}_{ij} \nonumber \\
+    &\quad + \gamma^{\text{Kids}}_{k} \cdot \text{Kids}_i + \sum_{b > 1} \gamma^{\text{Income Bin}}_{b,k} \cdot \mathbf{1}\{\text{IncBin}_i = b\} \nonumber \\
+    &\quad %+ \sum_{r \neq \text{White}} \gamma^{\text{Race}}_{r,k} \cdot \mathbf{1}\{\text{Race}_i = r\} 
+    + \sum_{a > 1} \gamma^{\text{Age}}_{a,k} \cdot \mathbf{1}\{\text{Age Bin}_i = a\}
+\label{eqn:heterogeneity}
+\end{align}
+
+Substituting $\beta_{k,i}$ into Equation \ref{eqn:pooled_event_study} yields a fully interacted model. The coefficient $\gamma_{0}^{k}$ captures the treatment effect on the reference group: a white user in the youngest age bracket and lowest income bin, who does not have children, and who had zero pre-period visits to any adult website (there are 6 ``XXX activity bins:'' the five quintiles, which are computed among ``ever-visitors,'' and then the referecen group of ``never visitors''). The other coefficients in equation \ref{eqn:event_study} capture the marginal impacts of individual-level characteristics on those treatment effects.
+
+\section{Results}
+
+% \section{Empirical Strategy}
+
+% We have a lot of choices to make here.
+
+% Start with the sample selection \& regression specification is not obvious. It's not 100\% obvious what we should do here, because we have an unbalanced panel.
+
+% Conceptually, I want to make an event study diagram in some window around law implementation. I think I would like to run this at the individual level, because then the regression specification can be easily adapted to heterogeneous treatment effects. If we had one state that implemented the law, here would be a TWFE specification for T weeks before and after the law implementation. $i$ is the individual, $s(i)$ is the state that individual $i$ lives in, and $t$ is the week.
+
+% % \begin{gather}
+% %     y_{it} = \sum_{k\in{-T, T}}^{K} \beta_k \text{Law}_{s(i),t-k} + \gamma_i + \delta_t + \varespilon_{it}
+% % \end{gather}
+
+% \subsection{Aggregate Specifications}
+
+% \textbf{Panel Version:}
+% \begin{gather}
+%     y_{it} = \sum_{k\in{-T, T}}^{K} \beta_k \text{Law}_{s(i),t-k} + \gamma_i + \delta_t + \varepsilon_{it}
+% \end{gather}
+
+% \textbf{Repeated cross-section version:}
+% \begin{gather}
+%     y_{it} = \sum_{k\in{-T, T}}^{K} \beta_k \text{Law}_{s(i),t-k} + \alpha_{s(i)} + \delta_t + \varepsilon_{it}
+% \end{gather}
+
+% \subsection{Website-level specifications}
+
+% We can run these regressions on a dataset where an observation is an individual-product-time triple.
+
+% \textbf{Repeated cross-section version:}
+% \begin{gather}
+%     y_{ijt} = \sum_{k\in{-T, T}}^{K} \beta^{1}_{k} \text{Law}_{s(i),t-k} \cdot \text{Comply}_{s(i),j,t} + \beta^{2}_{k} \text{Law}_{s(i),t-k} + \alpha_s(i) + \delta_t + \varepsilon_{it}
+% \end{gather}
+
+% \textbf{State aggregated repeated cross-section version:} 
+
+% This specification is the same as the previous, but now pools all data to the state level.
+% \begin{gather}
+%     y_{sjt} = \sum_{k\in{-T, T}}^{K} \beta^{1}_{k} \text{Law}_{s,t-k} \cdot \text{Comply}_{s,t-k} + \beta^{2}_{k} \text{Law}_{s,t-k} + \alpha_s(i) + \delta_t + \varepsilon_{it}
+% \end{gather}
+
+% \textbf{Individual Version:}
+% \begin{gather}
+%     y_{ijt} = \sum_{k\in{-T, T}}^{K} \beta^{1}_{k} \text{Law}_{s(i),t-k} \cdot \text{Comply}_{s(i),j,t} + \beta^{2}_{k} \text{Law}_{s(i),t-k} + \alpha_s(i) + \delta_t + \varepsilon_{it}
+% \end{gather}
+
+
+
+% The problem is that for some (many!) of the $i, t$ pairs, the data is missing, because of the unbalanced panel.
+
+% One option is to just run this regression on the full unbalanced panel, coding missing observations as ``NA.'' That might be OK, but I suspect that the TWFE specification can result in biases when data is missing.
+
+% Another option is to restrict the sample to a balanced panel. But, I'm having trouble defining the control group there!/
+
+% A third option is to pool data to the state (or metro) level.
+
+\section{Discussion}
+
+Careful discussion of the limitations of our empirical exercise. Comscore sample is weird sample. We don't observe private browsing. We don't observe VPN use. We don't observe which individual in the household is using the device so our heterogeneity analysis is limited. Etc.
+
+VERY Careful discussion of policy implications, emphasizing that your takeaway from these findings are going to depend your views about the welfare effects of marginal porn consumption. 
+
+A paragraph where we say we should do more work. 
+% Force all floats to be placed here
+\clearpage
+
+% Start a new page and prevent page breaks
+\newpage
+
+% Prevent floats from appearing before this point
+\suppressfloats[t]
+
+\clearpage
+
+\appendix
+
+% re-apply double spacing
+\doublespacing
+\addcontentsline{toc}{section}{Online Appendix} % Add the appendix text to the document TOC
+\part{Appendices} % Start the appendix part
+\parttoc % Insert the appendix TOC
+
+% Number appendix figures according to their sections
+\renewcommand{\thefigure}{\thesection.\arabic{figure}}
+\renewcommand{\thetable}{\thesection.\arabic{table}}
+\renewcommand{\theequation}{\thesection.\arabic{equation}}
+
+\clearpage
+
+\section{First Appendix}
+
+\end{document}

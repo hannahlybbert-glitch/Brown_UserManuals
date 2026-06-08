@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Structural Estimates: Nested Logit Dissimilarity Parameter</title>
+<script>
+MathJax = {
+  tex: {
+    inlineMath: [['$', '$'], ['\\(', '\\)']],
+    displayMath: [['$$', '$$'], ['\\[', '\\]']],
+    tags: 'ams'
+  }
+};
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 15px;
+    line-height: 1.7;
+    color: #1a1a1a;
+    background: #fff;
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 48px 32px 80px;
+  }
+  h1 {
+    font-size: 22px;
+    font-weight: bold;
+    margin-bottom: 6px;
+    line-height: 1.3;
+  }
+  .subtitle {
+    font-size: 13px;
+    color: #555;
+    margin-bottom: 36px;
+    font-style: italic;
+  }
+  h2 {
+    font-size: 17px;
+    font-weight: bold;
+    margin: 36px 0 12px;
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 4px;
+  }
+  h3 {
+    font-size: 15px;
+    font-weight: bold;
+    margin: 20px 0 8px;
+    color: #222;
+  }
+  p { margin-bottom: 12px; }
+  ul, ol { margin: 8px 0 12px 24px; }
+  li { margin-bottom: 5px; }
+
+  /* Key formula box */
+  .key-box {
+    background: #f5f0e8;
+    border-left: 4px solid #8c3a00;
+    padding: 18px 22px;
+    margin: 20px 0;
+    border-radius: 0 4px 4px 0;
+  }
+  .key-box .label {
+    font-size: 12px;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: #8c3a00;
+    margin-bottom: 8px;
+  }
+
+  /* Tables */
+  table {
+    border-collapse: collapse;
+    width: 100%;
+    margin: 16px 0 20px;
+    font-size: 14px;
+  }
+  thead tr {
+    border-top: 2px solid #333;
+    border-bottom: 1px solid #333;
+  }
+  tfoot tr {
+    border-top: 1px solid #333;
+    border-bottom: 2px solid #333;
+  }
+  td, th {
+    padding: 6px 12px;
+    text-align: right;
+  }
+  th { font-weight: bold; }
+  td:first-child, th:first-child { text-align: left; }
+
+  /* Status colors */
+  .status-shocked    { color: #b22222; }
+  .status-ambiguous  { color: #8B6914; }
+  .status-clean      { color: #1a7a2e; font-weight: bold; }
+  .status-aggregate  { color: #555; font-style: italic; }
+
+  /* Structural estimates table highlight */
+  .row-pooled td { font-weight: bold; background: #f5f0e8; }
+
+  /* Proportionality test callout */
+  .test-box {
+    background: #fff8f0;
+    border: 1px solid #e0c090;
+    padding: 14px 18px;
+    margin: 16px 0;
+    border-radius: 4px;
+    font-size: 14px;
+  }
+  .test-box .reject { color: #b22222; font-weight: bold; }
+
+  /* Warning / threat sections */
+  .threat-section {
+    margin: 14px 0;
+    padding: 12px 16px;
+    border-radius: 4px;
+  }
+  .threat-high { background: #fff0f0; border-left: 3px solid #b22222; }
+  .threat-low  { background: #f0f4ff; border-left: 3px solid #2244aa; }
+
+  /* Star footnote */
+  .footnote {
+    font-size: 12px;
+    color: #555;
+    margin-top: 4px;
+  }
+  .stars { color: #333; }
+
+  /* Horizon rule */
+  hr { border: none; border-top: 1px solid #ddd; margin: 32px 0; }
+
+  /* Not-0.60 box */
+  .not-box {
+    background: #f0f4ff;
+    border-left: 4px solid #2244aa;
+    padding: 14px 18px;
+    margin: 16px 0;
+    border-radius: 0 4px 4px 0;
+    font-size: 14px;
+  }
+  .not-box .label {
+    font-size: 12px;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: #2244aa;
+    margin-bottom: 6px;
+  }
+
+  .implied-table td, .implied-table th { text-align: center; }
+  .implied-table td:first-child, .implied-table th:first-child { text-align: left; }
+</style>
+</head>
+<body>
+
+<h1>Structural Estimates: Nested Logit Dissimilarity Parameter</h1>
+<p class="subtitle">AgeVerification project &mdash; March 2026 &mdash; Self-contained derivation; nested logit framework</p>
+
+<!-- ============================================================ -->
+<h2>1. The Point of the Model</h2>
+
+<h3>Why we want a unitless substitution parameter</h3>
+
+<p>The heterogeneity event studies already show how minutes changed for heavy vs. light users, by age, and so on. But minutes are not comparable across groups. A gain of 0.5 min/wk for a heavy user with a pre-ban baseline of 30 min/wk is a tiny share response. The same 0.5 min/wk for a casual user with a baseline of 2 min/wk is enormous. We want a unitless parameter that measures the same economic object &mdash; the degree of within-adult preference clustering relative to outside-option substitution &mdash; across groups. That parameter is $\lambda \in (0,1]$, the nested logit dissimilarity parameter, and it can be estimated separately for every user group from their event-study betas and group-specific pre-ban shares.</p>
+
+<h3>What $\lambda$ means economically</h3>
+
+<p>$\lambda$ is the primitive of the nested logit model. It governs within-nest preference correlation:</p>
+
+<ul>
+  <li><strong>$\lambda = 1$ (standard logit, IIA):</strong> Adult sites substitute for each other no more than for non-adult time. Every age-verification ban sends demand straight to all-other (AO) &mdash; no reshuffling within the adult nest.</li>
+  <li><strong>$\lambda \to 0$ (perfect within-nest correlation):</strong> Adult sites are nearly perfect substitutes. Bans merely reshuffle demand across adult sites with essentially no reduction in total adult consumption.</li>
+  <li><strong>$\lambda = 0.217$ (our estimate):</strong> Strong within-nest preference correlation. Adult sites are substantially closer substitutes for each other than for the outside option, but imperfect. The derived ratio $(1-\lambda)/\lambda = 3.61$.</li>
+</ul>
+
+<p>Compared to a nested CES framing, $\lambda$ is cleaner: it is a single directly-identified primitive of the model. Nested CES required two elasticities ($\sigma_1$, $\sigma_2$) and only their combination $(\sigma_2-\sigma_1)/(\sigma_1-1)$ was identified; $\lambda$ alone is identified from the diversion ratio structure.</p>
+
+<h3>Preview of the heterogeneity payoff</h3>
+
+<p>The same formula applies by user group $g$. All inputs are from existing heterogeneity event studies plus group-specific pre-ban shares. The directional hypothesis is that heavier pre-ban adult users will have lower $\lambda^{(g)}$ &mdash; tighter within-adult preference clustering &mdash; while casual users have $\lambda^{(g)}$ closer to 1 and exit to all-other entirely.</p>
+
+<hr>
+
+<!-- ============================================================ -->
+<h2>2. Setup</h2>
+
+<p>The model has 7 goods inside a two-level nested logit (McFadden, 1978):</p>
+<ul>
+  <li><strong>Adult nest $\mathcal{A}$:</strong> PornHub (PH), xHamster (XH), OXXX (an "Other XXX" bundle), Chaturbate (CB), xVideos (XV), xnxx (XNXX)</li>
+  <li><strong>All-other (AO):</strong> the complement, constructed residually from a fixed time budget $T = 10{,}080$ min/wk</li>
+</ul>
+
+<p>The single primitive is $\lambda \in (0,1]$, the dissimilarity parameter. Consumers draw utility $U_i = V_i + \varepsilon_i$ where the $\varepsilon_i$ follow a generalized extreme value distribution with correlation $1-\lambda$ within the adult nest. Lower $\lambda$ means stronger within-nest preference clustering.</p>
+
+<p>The three sites directly affected by age-verification mandates are PH, XH, and OXXX (partially). Three simultaneous shocks of unknown magnitude hit in the same event window, so we cannot separately identify $\delta_\text{PH}$, $\delta_\text{XH}$, $\delta_\text{OXXX}$ from the aggregate event studies. This is not a problem, as shown in Section 4.</p>
+
+<p>For each site $i$, $\beta_i$ denotes the long-term ATT (weighted average over $\tau = 4$&ndash;8), estimated on the win_min outcome. Pre-ban shares are $s_i = m_i / T$ where $m_i$ is the pre-ban mean in min/wk. $s_A = \sum_{i \in \text{adult}} s_i$ is the adult nest share of total time.</p>
+
+<hr>
+
+<!-- ============================================================ -->
+<h2>3. Raw ATT Estimates</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th>Site</th>
+      <th>$\beta$</th>
+      <th>SE</th>
+      <th>95% CI</th>
+      <th></th>
+      <th style="text-align:left">Status</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td class="status-shocked">PH</td>
+      <td class="status-shocked">&minus;0.6459</td>
+      <td class="status-shocked">0.0443</td>
+      <td class="status-shocked">[&minus;0.733, &minus;0.559]</td>
+      <td class="status-shocked stars">***</td>
+      <td style="text-align:left" class="status-shocked">Shocked (directly treated)</td>
+    </tr>
+    <tr>
+      <td class="status-shocked">XH</td>
+      <td class="status-shocked">&minus;0.0629</td>
+      <td class="status-shocked">0.0256</td>
+      <td class="status-shocked">[&minus;0.113, &minus;0.013]</td>
+      <td class="status-shocked stars">**</td>
+      <td style="text-align:left" class="status-shocked">Shocked (directly treated)</td>
+    </tr>
+    <tr>
+      <td class="status-shocked">OXXX</td>
+      <td class="status-shocked">&minus;0.1004</td>
+      <td class="status-shocked">0.0512</td>
+      <td class="status-shocked">[&minus;0.201, &nbsp;0.000]</td>
+      <td class="status-shocked stars">*</td>
+      <td style="text-align:left" class="status-shocked">Shocked (partial)</td>
+    </tr>
+    <tr>
+      <td class="status-ambiguous">CB</td>
+      <td class="status-ambiguous">&minus;0.0544</td>
+      <td class="status-ambiguous">0.0115</td>
+      <td class="status-ambiguous">[&minus;0.077, &minus;0.032]</td>
+      <td class="status-ambiguous stars">***</td>
+      <td style="text-align:left" class="status-ambiguous">Ambiguous (declining; may be own-shocked)</td>
+    </tr>
+    <tr>
+      <td class="status-clean">XV</td>
+      <td class="status-clean">+0.2451</td>
+      <td class="status-clean">0.0579</td>
+      <td class="status-clean">[+0.131, +0.359]</td>
+      <td class="status-clean stars">***</td>
+      <td style="text-align:left" class="status-clean">Clean substitute (not treated)</td>
+    </tr>
+    <tr>
+      <td class="status-clean">XNXX</td>
+      <td class="status-clean">+0.0786</td>
+      <td class="status-clean">0.0268</td>
+      <td class="status-clean">[+0.026, +0.131]</td>
+      <td class="status-clean stars">***</td>
+      <td style="text-align:left" class="status-clean">Clean substitute (not treated)</td>
+    </tr>
+    <tr>
+      <td class="status-aggregate">AllXXX</td>
+      <td class="status-aggregate">&minus;0.5398</td>
+      <td class="status-aggregate">0.0936</td>
+      <td class="status-aggregate">[&minus;0.723, &minus;0.356]</td>
+      <td class="status-aggregate stars">***</td>
+      <td style="text-align:left" class="status-aggregate">Net adult change (aggregate event study)</td>
+    </tr>
+    <tr>
+      <td class="status-aggregate">AO</td>
+      <td class="status-aggregate">+0.5398</td>
+      <td class="status-aggregate">0.0936</td>
+      <td class="status-aggregate">[+0.356, +0.723]</td>
+      <td class="status-aggregate stars">***</td>
+      <td style="text-align:left" class="status-aggregate">Inferred via adding-up ($T = 10{,}080$ fixed)</td>
+    </tr>
+  </tbody>
+</table>
+<p class="footnote">Significance: *** $p < 0.01$, ** $p < 0.05$, * $p < 0.10$. Long-term ATT = weighted average over $\tau = 4$&ndash;8 (win_min outcome). AO inferred from $\beta_\text{AO} = -\beta_\text{AllXXX}$ by time-budget identity.</p>
+<p class="footnote"><strong>Accounting check:</strong> Sum of six site betas = $-0.6459 - 0.0629 - 0.1004 - 0.0544 + 0.2451 + 0.0786 = -0.5399 \approx -0.5398$ &#10003;</p>
+
+<hr>
+
+<!-- ============================================================ -->
+<h2>4. The Identification Argument</h2>
+
+<h3>Three simultaneous shocks</h3>
+
+<p>Each observed event-study estimate picks up contributions from all three simultaneous shocks:</p>
+
+$$\beta_i \approx \gamma_{i,\text{PH}}\cdot\delta_\text{PH} + \gamma_{i,\text{XH}}\cdot\delta_\text{XH} + \gamma_{i,\text{OXXX}}\cdot\delta_\text{OXXX}$$
+
+<p>The shock magnitudes $\delta_j$ are unknown. This would seem to prevent structural estimation &mdash; but it does not, because of the nested logit factorization.</p>
+
+<h3>Nested logit Slutsky factorization</h3>
+
+<p>The nested logit Slutsky matrix has a key factorization property. For any adult site $i$ and any shocked adult site $j$ in the same nest ($i \neq j$, both $\in \mathcal{A}$):</p>
+
+$$\gamma_{ij} = \frac{s_i \cdot s_j}{s_A} \cdot \varphi_\lambda, \qquad \text{where } \varphi_\lambda \equiv \frac{1}{\lambda} - s_0 \approx \frac{1-\lambda}{\lambda} \text{ (since } s_0 \approx 1)$$
+
+<p>This factors as $f(i) \cdot g(j)$: a function only of $i$ times a function only of $j$. To see why this matters: for any unshocked adult site $i$ (XV or XNXX), the combined beta is:</p>
+
+$$\beta_i = \frac{s_i}{s_A} \cdot \varphi_\lambda \cdot \underbrace{\sum_{j \in \text{shocked}} s_j \cdot \delta_j}_{\equiv\, \Delta}$$
+
+<p>The factor $\Delta$ is the same for every unshocked site $i$ &mdash; it does not depend on $i$. For the outside option, the Slutsky term is $\gamma_{i,\text{AO}} = s_i s_0 \approx s_i$, so:</p>
+
+$$\beta_\text{AO} = \Delta \cdot s_0 \approx \Delta$$
+
+<p>(Here we use the adding-up identity $\beta_\text{AO} = -\beta_\text{AllXXX}$ and $s_0 \approx 1$.)</p>
+
+<h3>The key cancellation</h3>
+
+<p>$\Delta$ cancels in the ratio $\beta_i / \beta_\text{AO}$:</p>
+
+<div class="key-box">
+  <div class="label">Key identification formula</div>
+  $$\frac{\beta_i}{\beta_\text{AO}} = \frac{s_i}{s_A} \cdot \frac{1-\lambda}{\lambda}$$
+  <p style="margin-top:10px; margin-bottom:0; font-size:14px;">
+  Solving for $\lambda$:
+  $$\lambda = \frac{1}{1 + \dfrac{\beta_i}{\beta_\text{AO}} \cdot \dfrac{s_A}{s_i}}$$
+  </p>
+  <p style="margin-top:8px; margin-bottom:0; font-size:13px; color:#555;">
+  This holds for <em>every</em> unshocked adult site $i$, regardless of which sites are shocked, how many are shocked simultaneously, or the shock magnitudes $\delta_j$. Simultaneous shocks are fine because $\Delta$ cancels. $\lambda$ is a single directly-identified primitive &mdash; no normalization assumption is needed.
+  </p>
+</div>
+
+<p>The identifying variation is the <em>relative diversion</em> of shocked-site traffic between unshocked adult sites (XV, XNXX) and all-other (AO). Whatever the total diversion $\Delta$, the fraction going to any adult site vs. AO depends only on shares and $\lambda$.</p>
+
+<hr>
+
+<!-- ============================================================ -->
+<h2>5. Structural Estimates</h2>
+
+<h3>Pre-ban shares</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>Site</th>
+      <th>$m_i$ (min/wk)</th>
+      <th>Within-adult share $s_i/s_A$</th>
+      <th>Share of $T$: $s_i = m_i/10080$</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td>PH</td>   <td>1.031</td><td>17.6%</td><td>$1.023 \times 10^{-4}$</td></tr>
+    <tr><td>XH</td>   <td>0.226</td><td> 3.9%</td><td>$2.242 \times 10^{-5}$</td></tr>
+    <tr><td>OXXX</td> <td>3.211</td><td>54.7%</td><td>$3.186 \times 10^{-4}$</td></tr>
+    <tr><td>CB</td>   <td>0.425</td><td> 7.2%</td><td>$4.216 \times 10^{-5}$</td></tr>
+    <tr><td>XV</td>   <td>0.596</td><td>10.2%</td><td>$5.913 \times 10^{-5}$</td></tr>
+    <tr><td>XNXX</td> <td>0.380</td><td> 6.5%</td><td>$3.770 \times 10^{-5}$</td></tr>
+  </tbody>
+  <tfoot>
+    <tr><td>$s_A$ (adult total)</td><td>5.869</td><td>100%</td><td>$5.822 \times 10^{-4}$</td></tr>
+  </tfoot>
+</table>
+<p class="footnote">$m_i = \exp(\overline{\log\text{hrs}}) \times 60$ min/wk from pre-ban means. $T = 10{,}080$ min/wk.</p>
+
+<h3>Parameter estimates by site</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>Site</th>
+      <th>$\beta_i$</th>
+      <th>$\beta_i / \beta_\text{AO}$</th>
+      <th>$s_A / s_i$</th>
+      <th>$(1-\lambda)/\lambda$</th>
+      <th>$\lambda$</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td class="status-clean">XV</td>
+      <td>+0.2451</td>
+      <td>0.454</td>
+      <td>9.85</td>
+      <td><strong>4.47</strong></td>
+      <td><strong>0.183</strong></td>
+    </tr>
+    <tr>
+      <td class="status-clean">XNXX</td>
+      <td>+0.0786</td>
+      <td>0.146</td>
+      <td>15.45</td>
+      <td><strong>2.25</strong></td>
+      <td><strong>0.308</strong></td>
+    </tr>
+    <tr class="row-pooled">
+      <td>Pooled (XV + XNXX)</td>
+      <td>+0.3237</td>
+      <td>0.5997</td>
+      <td>6.015</td>
+      <td><strong>3.61</strong></td>
+      <td><strong>0.217</strong></td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>Pooled calculation:</strong></p>
+$$\frac{1-\lambda}{\lambda} = \frac{\beta_\text{XV} + \beta_\text{XNXX}}{\beta_\text{AO}} \cdot \frac{s_A}{s_\text{XV} + s_\text{XNXX}} = \frac{0.3237}{0.5398} \cdot \frac{5.869}{0.976} = 0.5997 \times 6.015 = \mathbf{3.61}$$
+$$\lambda = \frac{1}{1 + 3.61} = \frac{1}{4.61} = \mathbf{0.217}$$
+
+<h3>Proportionality test</h3>
+
+<p>Nested logit predicts that for any pair of unshocked adult sites $i, i'$, their relative gains should equal their relative pre-ban shares:</p>
+$$\frac{\beta_\text{XV}}{\beta_\text{XNXX}} = \frac{s_\text{XV}}{s_\text{XNXX}}$$
+
+<div class="test-box">
+  <strong>Proportionality test:</strong><br>
+  Predicted ratio: $s_\text{XV}/s_\text{XNXX} = 0.596/0.380 = 1.57$<br>
+  Observed ratio: $\beta_\text{XV}/\beta_\text{XNXX} = 0.2451/0.0786 = 3.12$<br>
+  Ratio-of-ratios: $3.12 / 1.57 = $ <span class="reject">1.99 &rarr; Reject proportionality</span>
+  <br><br>
+  XV absorbed approximately twice as much diverted traffic as its share would predict relative to XNXX.
+</div>
+
+<h3>Why the answer is $\lambda = 0.217$, not 0.60</h3>
+
+<div class="not-box">
+  <div class="label">Common misreading to avoid</div>
+  The raw ratio $(\beta_\text{XV} + \beta_\text{XNXX})/\beta_\text{AO} = 0.60$ is <strong>not</strong> the structural parameter $(1-\lambda)/\lambda$. It is the share of the total observed diversion that went to XV and XNXX specifically. Since XV and XNXX together account for only 16.7% of pre-ban adult time ($s_\text{XV} + s_\text{XNXX} = 0.976$ out of $s_A = 5.869$), their combined gain represents a small fraction of total within-adult reallocation. The share adjustment $s_A/(s_\text{XV} + s_\text{XNXX}) = 6.0$ scales up to what total within-adult substitution would be if <em>all</em> adult sites participated proportionally to their shares. The raw ratio is $(1-\lambda)/\lambda \cdot (s_\text{XV}+s_\text{XNXX})/s_A$, not $(1-\lambda)/\lambda$ itself.
+</div>
+
+<hr>
+
+<!-- ============================================================ -->
+<h2>6. Why $\lambda = 0.217$ Could Be Wrong</h2>
+
+<h3 style="color:#b22222">What would make the estimate too low (overestimates within-adult substitution, $\lambda$ too small)</h3>
+
+<div class="threat-section threat-high">
+  <p><strong>1. OXXX contamination.</strong> If OXXX is partially shocked &mdash; mandates affect some sites bundled inside OXXX &mdash; then $\delta_\text{OXXX} \neq 0$ biases $\beta_\text{XV}$ and $\beta_\text{XNXX}$ upward relative to what pure within-adult substitution from PH and XH alone would produce. Under nested logit this bias is proportional: it scales $s_i$ uniformly for all unshocked sites. The proportionality test is unaffected, but the <em>level</em> of $(1-\lambda)/\lambda$ is inflated, pushing $\lambda$ below its true value.</p>
+
+  <p><strong>2. CB reallocation.</strong> Chaturbate has a declining beta (&minus;0.054). If the CB decline reflects complementarity rather than own-shock, users displaced from PH could not substitute to CB &mdash; they went to XV and XNXX instead, artificially boosting their betas and inflating $(1-\lambda)/\lambda$.</p>
+</div>
+
+<h3 style="color:#2244aa">What would make the estimate too high ($\lambda$ too large, underestimates within-adult substitution)</h3>
+
+<div class="threat-section threat-low">
+  <p><strong>1. Measurement attenuation.</strong> The win_min outcome winsorizes large minute values. Heavy users who switched completely from PH to XV &mdash; the most intensive within-adult substitution &mdash; may be truncated at the top, attenuating $\beta_\text{XV}$. This would push $(1-\lambda)/\lambda$ downward and $\lambda$ upward.</p>
+
+  <p><strong>2. Extensive-margin exit.</strong> If some users quit adult content entirely rather than substituting, $\beta_\text{AO}$ is large while $\beta_\text{XV}$ and $\beta_\text{XNXX}$ are small. The ratio $(1-\lambda)/\lambda$ is low, but this reflects extensive-margin exit, not low within-adult substitutability conditional on staying. The structural $\lambda$ for the intensive margin is lower (stronger substitution) than 0.217.</p>
+</div>
+
+<h3>The proportionality failure as a structural warning</h3>
+
+<p>The 1.99 ratio-of-ratios (XV vs. XNXX) suggests these two unshocked sites are not symmetric substitutes for the shocked sites. Under a more flexible demand system, we would need site-specific cross-effects. Geographic variation &mdash; states where only PH was mandated vs. states where both PH and XH were mandated &mdash; could separately identify these. Without that variation, the pooled $\lambda = 0.217$ is a share-weighted average. It is a well-defined estimand, but not guaranteed to equal either the XV-only ($\lambda = 0.183$) or XNXX-only ($\lambda = 0.308$) estimate.</p>
+
+<hr>
+
+<!-- ============================================================ -->
+<h2>7. Heterogeneity Payoff</h2>
+
+<p>The same identification argument applies by user group $g$. Define $\beta_i^{(g)}$ as the group-$g$ long-term ATT for site $i$, and $s_i^{(g)}$ as the group-$g$ pre-ban share of $T$. Then the group-specific dissimilarity parameter is:</p>
+
+$$\lambda^{(g)} = \frac{1}{1 + \dfrac{\beta_i^{(g)}}{\beta_\text{AO}^{(g)}} \cdot \dfrac{s_A^{(g)}}{s_i^{(g)}}}$$
+
+<p>All inputs come from existing heterogeneity event studies (betas by group) plus group-specific pre-ban means (shares by group). No new regressions are needed. This puts heavy vs. light users, age groups, income groups, etc. on a common unitless scale.</p>
+
+<p><strong>Directional hypothesis:</strong> Users with higher pre-ban adult consumption (heavy users, likely habitual consumers) have more-developed preferences over adult sites and will find substitutes within the nest. We therefore expect lower $\lambda^{(g)}$ (stronger within-adult clustering) for heavy pre-ban users, and $\lambda^{(g)}$ closer to 1 for light users who exit to AO when the ban hits.</p>
+
+<p>This is the key empirical deliverable: converting heterogeneous minute-change estimates into a single economic parameter that is directly comparable across groups with very different baseline levels of consumption.</p>
+
+<hr>
+<p class="footnote" style="text-align:center; margin-top:32px;">
+  Derivation follows substitution_params.pdf (March 2026). Primary result: $\lambda = 0.217$ (pooled XV+XNXX), equivalent to $(1-\lambda)/\lambda = 3.61$.
+</p>
+
+</body>
+</html>

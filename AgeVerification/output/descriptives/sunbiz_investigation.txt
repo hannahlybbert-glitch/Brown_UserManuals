@@ -1,0 +1,140 @@
+SUNBIZ.ORG INVESTIGATION REPORT
+================================================================================
+
+================================================================================
+WEB CHARACTERISTICS FILES
+================================================================================
+
+Month ID 265:
+  Total websites: 2,319,220
+  SUNBIZ entries: 3
+    - top_web_id: 6123051, name: SUNBIZTEAM.COM, category: Coupons/Incentives, subcategory: Services
+    - top_web_id: 7124509, name: SUNBIZTEAM.IN, category: Coupons/Incentives, subcategory: Services
+    - top_web_id: 3477480, name: SUNBIZ.ORG, category: Taxes, subcategory: Financial Services
+
+Month ID 266:
+  Total websites: 2,319,430
+  SUNBIZ entries: 3
+    - top_web_id: 3477480, name: SUNBIZ.ORG, category: Taxes, subcategory: Financial Services
+    - top_web_id: 7124509, name: SUNBIZTEAM.IN, category: Coupons/Incentives, subcategory: Services
+    - top_web_id: 6123051, name: SUNBIZTEAM.COM, category: Coupons/Incentives, subcategory: Services
+
+================================================================================
+CROSSWALK FILES (pattern_id -> top_web_id mappings)
+================================================================================
+
+SUNBIZ top_web_ids found: {'7124509', '3477480', '6123051'}
+
+Month ID 265:
+  Total pattern_ids: 3,282,729
+  Pattern_ids mapping to SUNBIZ: 3
+    - pattern_id: 6123339 -> top_web_id: 6123051
+    - pattern_id: 7124808 -> top_web_id: 7124509
+    - pattern_id: 3477481 -> top_web_id: 3477480
+
+Month ID 266:
+  Total pattern_ids: 3,286,073
+  Pattern_ids mapping to SUNBIZ: 3
+    - pattern_id: 3477481 -> top_web_id: 3477480
+    - pattern_id: 7124808 -> top_web_id: 7124509
+    - pattern_id: 6123339 -> top_web_id: 6123051
+
+================================================================================
+SESSION TRAFFIC ANALYSIS
+================================================================================
+
+Jan 2022 (202201):
+  Total sessions: 36,407,523
+  SUNBIZ sessions: 236,624 (0.6499%)
+
+  Breakdown by top_web_name:
+    - SUNBIZ.ORG: 236,624 sessions
+
+  SUNBIZ.ORG details:
+    Sessions: 236,624
+    Unique machines: 25,645
+    Unique persons: 18,669
+    Unique pattern_ids: 1
+    Pattern_ids: ['3477481']
+    Mean duration (min): 5.81
+    Median duration (min): 2.00
+    Zero-duration sessions: 1886 (0.8%)
+    Category: Taxes
+    Subcategory: Financial Services
+
+    Top 5 metro areas:
+      - New York, NY: 18,829
+      - Los Angeles, CA: 13,752
+      - Dallas-Ft. Worth, TX: 7,218
+      - Washington, DC: 6,450
+      - Philadelphia, PA: 5,992
+
+Feb 2022 (202202):
+  Total sessions: 29,265,907
+  SUNBIZ sessions: 480,432 (1.6416%)
+
+  Breakdown by top_web_name:
+    - SUNBIZ.ORG: 480,432 sessions
+
+  SUNBIZ.ORG details:
+    Sessions: 480,432
+    Unique machines: 32,644
+    Unique persons: 23,496
+    Unique pattern_ids: 1
+    Pattern_ids: ['3477481']
+    Mean duration (min): 6.69
+    Median duration (min): 2.00
+    Zero-duration sessions: 3825 (0.8%)
+    Category: Taxes
+    Subcategory: Financial Services
+
+    Top 5 metro areas:
+      - New York, NY: 32,627
+      - Los Angeles, CA: 28,672
+      - Dallas-Ft. Worth, TX: 17,682
+      - Washington, DC: 12,022
+      - Tampa-St. Petersburg, FL: 10,735
+
+Feb 2023 (202302):
+  Total sessions: 19,106,861
+  SUNBIZ sessions: 1,696 (0.0089%)
+
+  Breakdown by top_web_name:
+    - SUNBIZ.ORG: 1,696 sessions
+
+  SUNBIZ.ORG details:
+    Sessions: 1,696
+    Unique machines: 1,313
+    Unique persons: 1,090
+    Unique pattern_ids: 1
+    Pattern_ids: ['3477481']
+    Mean duration (min): 2.32
+    Median duration (min): 2.00
+    Zero-duration sessions: 18 (1.1%)
+    Category: Taxes
+    Subcategory: Financial Services
+
+    Top 5 metro areas:
+      - Miami, FL: 225
+      - Orlando, FL: 129
+      - Tampa-St. Petersburg, FL: 114
+      - West Palm Beach-Port St. Lucie, FL: 72
+      - New York, NY: 63
+
+================================================================================
+PATTERN_ID CONSISTENCY CHECK
+================================================================================
+
+Pattern_ids mapped to SUNBIZ.ORG by month:
+  202201: {'3477481'}
+  202202: {'3477481'}
+  202302: {'3477481'}
+
+All unique pattern_ids: {'3477481'}
+
+Checking each pattern_id across months:
+
+  pattern_id 3477481:
+    Jan 2022: 236,624 sessions -> ['SUNBIZ.ORG']
+    Feb 2022: 480,432 sessions -> ['SUNBIZ.ORG']
+    Feb 2023: 1,696 sessions -> ['SUNBIZ.ORG']

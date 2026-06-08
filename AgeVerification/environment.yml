@@ -1,0 +1,25 @@
+name: age-verification
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - python=3.11
+  - pandas
+  - xlrd>=2.0.1
+  - openpyxl
+  - numpy
+  - pyarrow
+  - matplotlib
+  - fuzzywuzzy
+  - r-base
+  - r-arrow
+  - r-dplyr
+  - r-tidyr
+  - r-here
+  - r-fixest
+  - r-broom
+  - r-ggplot2
+  - r-knitr
+  - r-scales
+  - r-patchwork
+  - r-ggbrace

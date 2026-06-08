@@ -1,0 +1,7 @@
+variable,type,count,mean,std,min,p25,median,p75,max,unique_values,top_category,top_category_count,top_category_pct
+age,numeric,159116.0,44.968903190125445,17.07934501748291,18.0,31.0,44.0,58.0,95.0,78,,,
+gender,categorical,159116.0,,,,,,,,2,Male,86739.0,54.51305965459162
+children,categorical,159116.0,,,,,,,,2,Children:Yes,99979.0,62.834033032504585
+ethnicity,categorical,159116.0,,,,,,,,4,Non-Hispanic,131284.0,82.50835868171649
+race,categorical,159116.0,,,,,,,,2,Race:Non-Black,141379.0,88.85278664622037
+HH_Size,categorical,159116.0,,,,,,,,5,HH Size: 2,48888.0,30.724754267326983

@@ -1,0 +1,84 @@
+================================================================================
+PERSON DEMOGRAPHICS ANALYSIS
+Generated: 2026-01-17 14:15:34
+================================================================================
+
+1. PERSON-MACHINE RELATIONSHIP
+--------------------------------------------------------------------------------
+Average persons per machine: 1.15
+Maximum persons per machine: 9
+Average machines per person: 1.00
+Maximum machines per person: 1
+
+Relationship Type: Many-to-One (multiple persons per machine)
+
+2. MACHINE COVERAGE (% WITH PERSON DATA)
+--------------------------------------------------------------------------------
+Average coverage across all months: 62.6%
+Range: 45.1% to 72.6%
+
+First month (202201):
+  - Total machines: 222,563
+  - Machines with person data: 135,148
+  - Machines without person data: 106,436
+  - Coverage rate: 60.7%
+
+Last month (202412):
+  - Total machines: 123,224
+  - Machines with person data: 55,564
+  - Machines without person data: 73,613
+  - Coverage rate: 45.1%
+
+3. PRIMARY PERSON INVESTIGATION
+--------------------------------------------------------------------------------
+Primary person pattern: First person (by person_id)
+Analysis based on 100 multi-person machines
+
+Ordering patterns:
+  - Sorted by age (descending): 72.0%
+  - Sorted by person_id: 90.0%
+
+Recommendation: Use first person listed as primary person.
+
+4. PANEL SIZE OVER TIME
+--------------------------------------------------------------------------------
+First month (202201):
+  - Persons: 159,116
+  - Machines: 135,148
+
+Last month (202412):
+  - Persons: 62,112
+  - Machines: 55,564
+
+5. DEMOGRAPHIC SUMMARY STATISTICS (JAN 2022)
+--------------------------------------------------------------------------------
+
+AGE:
+  Mean: 45.0
+  Std: 17.1
+  Min: 18
+  Median: 44
+  Max: 95
+  Unique values: 78
+
+GENDER:
+  Unique categories: 2
+  Most common: Male (54.5%)
+
+CHILDREN:
+  Unique categories: 2
+  Most common: Children:Yes (62.8%)
+
+ETHNICITY:
+  Unique categories: 4
+  Most common: Non-Hispanic (82.5%)
+
+RACE:
+  Unique categories: 2
+  Most common: Race:Non-Black (88.9%)
+
+HH_SIZE:
+  Unique categories: 5
+  Most common: HH Size: 2 (30.7%)
+
+================================================================================

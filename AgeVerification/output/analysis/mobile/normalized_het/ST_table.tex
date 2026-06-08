@@ -1,0 +1,52 @@
+\begin{landscape}
+\begin{table}[htbp]
+\centering
+\caption{Normalized treatment effects by subgroup --- Short-run ($\tau = 0$--$3$)}
+\label{tab:normalized_het_st}
+\begin{tabular}{lrr rrrr}
+\toprule
+& & & \multicolumn{4}{c}{As fraction of counterfactual PH consumption} \\
+\cmidrule(lr){4-7}
+Group & $n$ (000s) & \shortstack{Counterfactual \\\\ PH (min/wk)} & \shortstack{PH decline \\\\ $\hat{\beta}^{\text{PH}}/E[Y^{\text{PH}}(0)]$} & \shortstack{$\to$ xVideos \\\\ $\hat{\beta}^{\text{XV}}/E[Y^{\text{PH}}(0)]$} & \shortstack{$\to$ XNXX \\\\ $\hat{\beta}^{\text{XNXX}}/E[Y^{\text{PH}}(0)]$} & \shortstack{Remaining on PH \\\\ $1 + \hat{\beta}^{\text{PH}}/E[Y^{\text{PH}}(0)]$}
+\\ \midrule
+Full sample & 8.6 & 3.934 & -0.264 & 0.115 & 0.135 & 0.736 \\
+\midrule
+\multicolumn{7}{l}{\textit{Pre-period PH usage}} \\
+PH bin 0 & 6.2 & 1.086 & -0.198 & 0.132 & 0.260 & 0.802 \\
+PH bin 1 (low) & 0.8 & 1.517 & -0.314 & 0.261 & -0.055 & 0.686 \\
+PH bin 2 (mid) & 0.8 & 4.269 & -0.242 & 0.067 & 0.192 & 0.758 \\
+PH bin 3 (high) & 0.8 & 26.345 & -0.276 & 0.108 & 0.099 & 0.724 \\
+XXX bin 0 & 4.5 & 1.249 & -0.172 & 0.061 & 0.034 & 0.828 \\
+XXX bin 1 (low) & 1.4 & 0.839 & -0.383 & 0.086 & -0.183 & 0.617 \\
+XXX bin 2 (mid) & 1.3 & 3.620 & -0.365 & 0.072 & 0.178 & 0.635 \\
+XXX bin 3 (high) & 1.4 & 15.978 & -0.249 & 0.131 & 0.162 & 0.751 \\
+\midrule
+\multicolumn{7}{l}{\textit{Age}} \\
+Age 18-34 & 2.6 & 5.803 & -0.334 & 0.126 & 0.099 & 0.666 \\
+Age 35-54 & 4.0 & 3.251 & -0.240 & 0.192 & 0.180 & 0.760 \\
+Age 55+ & 2.0 & 3.192 & -0.172 & -0.065 & 0.120 & 0.828 \\
+\midrule
+\multicolumn{7}{l}{\textit{Income}} \\
+Income: low & 0.8 & 2.592 & 0.027 & 0.094 & 0.066 & 1.027 \\
+Income: mid & 2.8 & 3.990 & -0.361 & -0.024 & 0.095 & 0.639 \\
+Income: high & 5.0 & 4.115 & -0.236 & 0.199 & 0.169 & 0.764 \\
+\midrule
+\multicolumn{7}{l}{\textit{Children present}} \\
+Kids: no & 4.5 & 4.422 & -0.235 & 0.100 & 0.064 & 0.765 \\
+Kids: yes & 4.1 & 3.410 & -0.305 & 0.138 & 0.232 & 0.695 \\
+\midrule
+\multicolumn{7}{l}{\textit{VPNclean}} \\
+VPN user: no & 8.5 & 3.947 & -0.265 & 0.112 & 0.131 & 0.735 \\
+VPN user: yes & 0.1 & 3.276 & -0.182 & 0.339 & 0.345 & 0.818 \\
+\midrule
+\multicolumn{7}{l}{\textit{allVPN}} \\
+allVPN user: no & 8.2 & 3.922 & -0.268 & 0.127 & 0.153 & 0.732 \\
+allVPN user: yes & 0.4 & 4.034 & -0.169 & -0.059 & -0.135 & 0.831 \\
+\bottomrule
+\end{tabular}
+\vspace{4pt}
+\begin{minipage}{\linewidth}\footnotesize
+\textit{Notes}: Each row reports results from a separate TWFE regression restricted to the indicated subgroup. Outcome is winsorized minutes/machine/week. $E[Y^{\text{PH}}(0)]$ is the estimated counterfactual Pornhub consumption in the post period: $\bar{y}^{\text{PH}}_{g,\text{treated},\text{post}} - \hat{\beta}^{\text{PH}}_g$. All columns are expressed as fractions of $E[Y^{\text{PH}}(0)]$. Fraction remaining $= 1 + \hat{\beta}^{\text{PH}}/E[Y^{\text{PH}}(0)]$. Machine$\times$cohort and cohort$\times$week FEs; SE clustered by state.
+\end{minipage}
+\end{table}
+\end{landscape}
