@@ -14,6 +14,7 @@ Git Issues are important for two reasons: (1) they are the primary source of doc
 1. **Documentation**
    - **One topic per issue**: Git Issues are where we document everything done throughout a project, so it is important to follow the "**one topic per issue**" rule to maintain organization. Open a new issue whenever there is a topic, analysis decision or question that needs to be discussed. If a conversation within an issue is diverging to a new topic, open a new issue and shift the coversation there.
    - **Issue names**: Issue titles should be **specific** and **concise** in describing the topic of the issue so it is easy to navigate to past conversations (ex. "Incorporate mobile data into analysis pipeline", or "Building aggregation script (state, week, website level)")
+   - The first thing you should do after opening a new issue is write a sentence or two comment about the purpose of the issue ("The purpose of this issue is...")
    - Some issues will be just a couple of comments long, that is okay. Some will be dozens long, that is also okay as long as the topic is consistent. 
    - **Close issues** with a brief comment of what was accomplished in the issue when the topic of the issue has been resolved. It is good practice at the end of each week to check up on the issues to understand which issues are completed (close the issue) and which need to be revisted (keep issue open). 
 2. **Communication**
