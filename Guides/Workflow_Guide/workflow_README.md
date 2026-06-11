@@ -55,6 +55,7 @@ Claude code is a crazy powerful productivity enhancer. It can also lead to a lot
 - Misinterpretting what you want it to do - you have to be clear and ask it to ask you questions.
 - Writing Git Issue comments, sometimes. It is good at adding data into markdown tables and summarizing short sessions or general ideas.
     - At the end of a session, you can ask Claude "Can you add a comment to issue #5 explaining concisely what we covered in this session {be more specific here than I am}?" The more precise your instructions the better a comment it will write. If you don't give good instructions the comment will be unnecessarily long.
+- Handling multiple file formats
 
 
 **What Claude is not good at**
@@ -87,6 +88,7 @@ Claude code is a crazy powerful productivity enhancer. It can also lead to a lot
     1. I rarely set "auto-accept edits." I prefer to read the code it writes as it suggests edits to make sure I understand what the code does (and that it is doing the right thing!)
     2. I would suggest writing your own Git issue comments instead of having Claude do it. Writing helps you think. If Claude always writes the comments you will quickly have no idea what is going on in the project. 
     3. Make sure you take time to step back and look at the big picture frequently. It is easy to get wrapped up in the data and forget what is going on if you doing let yourself get up to speed with Claude.
+4. Always save your work `CTRL+S` before having Claude make edits so it gets an accurate picture of the state of the script and so its edits don't overwrite your work
 
 
 ## Workflow that works for me
