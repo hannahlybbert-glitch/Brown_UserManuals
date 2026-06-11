@@ -40,7 +40,7 @@ Git Issues are important for two reasons: (1) they are the primary source of doc
         # Purpose: Create intermediate session-level files with week_of_sample and coarse_category
 ```
 - **One task per script**: Each script should basically accomplish one task. For example in `code/analysis/`: `create_het_table.R` creates the heterogeneity _table_ but `create_het_main_figures.R` creates the main heterogeneity _figures_. Even though they are both related to heterogeneity plots, we separate them for cleanliness.
-- If you are doing a **multi-step coding** process where one script depends on the output of a previous script, **label the scripts numerically**. For example, see [`code/Aggregation/`](https://github.com/mattbrownecon/AgeVerification/tree/main/code/Aggregation) where we have scripts 1_ through 5_ for the aggregation pipeline. Script `4_aggregate_machine_month.py` uses as input the intermediate session files created in `2_create_intermediate_sessions.py`, so script 2 must have run prior to running script 4. 
+- If you are doing a **multi-step coding** process where one script depends on the output of a previous script, **label the scripts numerically**. For example, see [`code/Aggregation/`](https://github.com/hannahlybbert-glitch/Brown_UserManuals/tree/main/AgeVerification/code/Aggregation) where we have scripts 1_ through 5_ for the aggregation pipeline. Script `4_aggregate_machine_month.py` uses as input the intermediate session files created in `2_create_intermediate_sessions.py`, so script 2 must have run prior to running script 4. 
 
 
 ## Working with Claude Code
@@ -77,7 +77,7 @@ Claude code is a crazy powerful productivity enhancer. It can also lead to a lot
         - Clarify or ask you questions if it doesn't understand.
         - Provide a plan first of how it will execute the code. This is probably the number one way I catch Claude trying to slip a bug into the code.
         - Make a task list to track the steps it is doing/has done. 
-- Create a `SCRIPT_BEST_PRACTICES.md` file which includes all of the coding practices you want Claude to follow. See an example [here](https://github.com/mattbrownecon/AgeVerification/blob/main/code/SCRIPT_BEST_PRACTICES.md). You can add to this script as new "best practices" come up.
+- Create a `SCRIPT_BEST_PRACTICES.md` file which includes all of the coding practices you want Claude to follow. See an example [here](https://github.com/hannahlybbert-glitch/Brown_UserManuals/blob/main/AgeVerification/code/SCRIPT_BEST_PRACTICES.md). You can add to this script as new "best practices" come up.
 
 
 ## General tips
