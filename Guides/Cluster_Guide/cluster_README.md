@@ -54,6 +54,7 @@ These commands are run in your Midway cluster terminal
     - Shows the status of the current job and updates every 10 seconds (can change to however frequently you want it to update)
 - Cancel a job: `scancel {job_id}` (ex. `scancel 5447892`)
 
+Permission problems
 
 
 ## Notes
@@ -81,12 +82,12 @@ These commands are run in your Midway cluster terminal
     - Include a header which lists the settings for the job (see an example below)
     - What you need to change in this example:
         - `Author`, `Created`, `Updated`, and `Purpose` (as usual)
-        - `Run from project root:` - this is just a note to whoever is running this script of how they need to run the job in the terminal
-        - `job-name` - give the job a name
-        - `output` - always keep the `logs/` just change "aggregation" to be the name of the log file
-        - `error` - should match the output name
-        - `time` - I would default to 2-4 hours for long jobs, 1 hour for short jobs. Claude is good at estimating time if you are unsure, although I always err on the side of caution and keep time limit longer because there is nothing worse than a long job timing out and having to start the run over!
-        - `mem` - Default to 64GB or let Claude decide. If it crashes because out of memory, just increase and re-run.
+        - `Run from project root:` - This is just a note to whoever is running this script of how they need to run the job in the terminal
+        - `job-name` - Give the job a name
+        - `output` - Always keep the `logs/` just change "aggregation" to be the name of the log file
+        - `error` - Should match the output name
+        - `time` - Max runtime. Default to 2-4 hours for long jobs, 1 hour for short jobs. Claude is good at estimating time if you are unsure, although I always err on the side of caution and keep time limit longer because there is nothing worse than a long job timing out and having to start the run over!
+        - `mem` - Memory allocation. Default to 64GB or let Claude decide. If it crashes because out of memory, just increase and re-run.
             - Note that the more time and memory you request, the longer your job will sit in the queue before running, so try to be accurate.
 
 ```
@@ -104,6 +105,14 @@ These commands are run in your Midway cluster terminal
 #SBATCH --error=logs/aggregation_%j.err
 #SBATCH --time=04:00:00
 #SBATCH --mem=64G
+```
+
+* Then add the scripts to the sbatch file using the right command (ex. python, Rscript, etc.). For example
+
+```
+echo ""                                                 # echo is just a print command in sbatch
+echo "STEP 5: Assembling final machine panel..."
+python3 code/Aggregation/5_assemble_machine_panel.py    # add your script here and the correct command
 ```
 
 5. **Syncing local code to Midway**. 
