@@ -77,6 +77,7 @@ Claude code is a crazy powerful productivity enhancer. It can also lead to a lot
         - Clarify or ask you questions if it doesn't understand.
         - Provide a plan first of how it will execute the code. This is probably the number one way I catch Claude trying to slip a bug into the code.
         - Make a task list to track the steps it is doing/has done. 
+- Create a `SCRIPT_BEST_PRACTICES.md` file which includes all of the coding practices you want Claude to follow. See an example [here](https://github.com/mattbrownecon/AgeVerification/blob/main/code/SCRIPT_BEST_PRACTICES.md). You can add to this script as new "best practices" come up.
 
 
 ## General tips
