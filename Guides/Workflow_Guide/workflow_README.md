@@ -48,8 +48,10 @@ Claude code is a crazy powerful productivity enhancer. It can also lead to a lot
 
 **What Claude is good at**
 - Writing code
+- Fixing bugs (paste the error message into the terminal)
 - Finding code or analysis steps that got lost. (ex. "In which script did we winsorize the data at the session level?")
 - Explaining data hierarchy and how scripts are related
+- Explaining what data looks like. Because you can't view raw parquet files, you can instead ask Claude to explain the structure of the data including the columns and an example of the first few rows of the data.
 - Explaining what a script does (ex. "What does check_machine_person_coverage.py do and in which GitHub Issues is it referenced?")
 - Suggesting solutions to problems
 - Misinterpretting what you want it to do - you have to be clear and ask it to ask you questions.
