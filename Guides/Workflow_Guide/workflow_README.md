@@ -7,15 +7,16 @@
 # GitHub & Claude Code Workflow
 
 ## Overview
-Add overview notes here
+Claude Code is an incredibly powerful tool that will help you in your work. It is important to learn how to use it and stay organized while using it. This is a guide to using Claude Code in conjunction with Github and Git Issues.
 
 ## Git Issues & Communication
-Git Issues are important for two reasons: (1) they are the primary source of documentation and (2) they are your main mode of communication with Matt regarding code, analysis, data structure etc.
+Git Issues are important for two reasons: (1) they are the primary source of documentation in a project and (2) they are your main mode of communication with Matt regarding code, analysis, data structure etc.
 1. **Documentation**
-   - **One topic per issue**: Git Issues are where we document everything done throughout a project, so it is important to follow the "**one topic per issue**" rule to maintain organization. Open a new issue whenever there is a topic, analysis decision or question that needs to be discussed. If a conversation within an issue is diverging to a new topic, open a new issue and shift the coversation there.
+   - **One topic per issue**: Git Issues are where we document everything done throughout a project, so it is important to follow the "**one topic per issue**" rule to maintain organization. Open a new issue whenever there is a new topic, analysis decision or question that needs to be discussed. If a conversation within an issue is diverging to a new topic, open a new issue and shift the coversation there. Sometimes it makes sense to split a larger task into multiple Git Issues; use best judgement here.
    - **Issue names**: Issue titles should be **specific** and **concise** in describing the topic of the issue so it is easy to navigate to past conversations (ex. "Incorporate mobile data into analysis pipeline", or "Building aggregation script (state, week, website level)")
    - The first thing you should do after opening a new issue is write a sentence or two comment about the purpose of the issue ("The purpose of this issue is...")
    - Some issues will be just a couple of comments long, that is okay. Some will be dozens long, that is also okay as long as the topic is consistent. 
+   - **Add comments to relevant issues while you work.** This doesn't need to be excessive, just if there is a decision you make or a result produced that is worth docummenting or if you have a question you have that needs to be resolved.
    - **Close issues** with a brief comment of what was accomplished in the issue when the topic of the issue has been resolved. It is good practice at the end of each week to check up on the issues to understand which issues are completed (close the issue) and which need to be revisted (keep issue open). 
 2. **Communication**
    - **Tagging** to loop another project member in to a comment "@{githubid}" (ex. @mattbrownecon)
@@ -39,8 +40,7 @@ Git Issues are important for two reasons: (1) they are the primary source of doc
         # Purpose: Create intermediate session-level files with week_of_sample and coarse_category
 ```
 - **One task per script**: Each script should basically accomplish one task. For example in `code/analysis/`: `create_het_table.R` creates the heterogeneity _table_ but `create_het_main_figures.R` creates the main heterogeneity _figures_. Even though they are both related to heterogeneity plots, we separate them for cleanliness.
-- If you are doing a **multi-step coding** process where one script depends on the output of a previous script, **label the scripts numerically**. For example, see `code/Aggregation/` where we have scripts 1_ through 5_ for the aggregation pipeline. Script `4_aggregate_machine_month.py` uses as input the intermediate session files created in `2_create_intermediate_sessions.py`, so script 2 must have run prior to running script 4. 
-- 
+- If you are doing a **multi-step coding** process where one script depends on the output of a previous script, **label the scripts numerically**. For example, see [`code/Aggregation/`](https://github.com/mattbrownecon/AgeVerification/tree/main/code/Aggregation) where we have scripts 1_ through 5_ for the aggregation pipeline. Script `4_aggregate_machine_month.py` uses as input the intermediate session files created in `2_create_intermediate_sessions.py`, so script 2 must have run prior to running script 4. 
 
 
 ## Working with Claude Code
@@ -48,43 +48,52 @@ Claude code is a crazy powerful productivity enhancer. It can also lead to a lot
 
 **What Claude is good at**
 - Writing code
-- Misinterpretting what you want it to do - you have to be clear and ask it to ask you questions.
 - Finding code or analysis steps that got lost. (ex. "In which script did we winsorize the data at the session level?")
 - Explaining data hierarchy and how scripts are related
 - Explaining what a script does (ex. "What does check_machine_person_coverage.py do and in which GitHub Issues is it referenced?")
 - Suggesting solutions to problems
+- Misinterpretting what you want it to do - you have to be clear and ask it to ask you questions.
+- Writing Git Issue comments, sometimes. It is good at adding data into markdown tables and summarizing short sessions or general ideas.
+    - At the end of a session, you can ask Claude "Can you add a comment to issue #5 explaining concisely what we covered in this session {be more specific here than I am}?" The more precise your instructions the better a comment it will write. If you don't give good instructions the comment will be unnecessarily long.
+
 
 **What Claude is not good at**
-- understanding with one setence what you want.
+- Understanding with one setence what you want.
+- Writing git issue comments. See General Tips #3.2
+- Cleaning up stale comments from previous edits. 
+    - Claude does a good job of adding in comments to its code, but then when you have it make edits later, it will usually forget to update the comment and then get confused thinking that what is stated in the comments is what the code actually does!
 
 **My Claude Code tips**
-- Small task: something like asking it to remind you what a given script does, make a small change to a script (ex.adding a new variable to the output dataframe) 
-- Medium task
-- **Framing a task for Claude**: If I am giving Claude a larger task, I rarely type directly in the console and almost always draft out my prompt in a separate running Google Doc I have for the project. 
-- For large tasks, send one task at a timeSend one task at a time
-- Explain it to yourself in a google or word doc first before sending the task to Claude
-- Asking it to ask you question if it doesn't understand or to clarify. 
-- Ask it to provide a plan first of how it will execute the code.
-- Task list to track the steps it is doing/has done. 
-
-- How to frame a task for Claude (what context to include)
+- **Small task**: something like asking it to remind you what a given script does or make a small change to a script (ex.adding a new variable to the output dataframe).
+    - You can ask these directly in the terminal 
+- **Medium task**: writting a full script, building a figure, re-organizing files, etc.
+- **Large task**: a multi-script pipeline, re-working a previously coded analysis, brainstorming how to approach code you want to write, etc.
+- **Framing a medium or large task for Claude**: 
+    - For medium and larger task, I rarely type directly in the console and almost always draft out my prompt in a separate running Google Doc I have for the project and then copy and paste it into the terminal. 
+    - For medium tasks, you can usually send the whole task at once if you are detailed enough.
+    - For large tasks, send one task at a time (ex. building one script at a time instead of setting it loose to build 5 scripts at once)
+    - Explain it to yourself in a google or word doc first before sending the task to Claude. Organize your thoughts so you can send Claude a coherent task instead of jumbled thoughts. Remember, Claude doesn't perform well with vague instructions!
+    - Ask Claude to:
+        - Clarify or ask you questions if it doesn't understand.
+        - Provide a plan first of how it will execute the code. This is probably the number one way I catch Claude trying to slip a bug into the code.
+        - Make a task list to track the steps it is doing/has done. 
 
 
 ## General tips
-- it might take you an extra minute or two to come up with a good name (for a commit, script, issue title, etc.) but do it or you will regret later
-- it might take you an extra 10-15 minutes to figure out the best way to organize something. Take that time instead of doing it sloppy. Organization is essential when you work with large data.
-- organizing takes a few extra minutes but it is worth it.
+1. It might take you an extra minute or two to come up with a good name (for a commit, script, issue title, etc.) but do it or you will regret later when a name isn't intuitive. 
+2. It might take you an extra 10-15 minutes (or longer!) to figure out the best way to organize something. Take that time instead of doing it blind. Organization is essential when you work with large data. I found it helpful to go to a whiteboard and draw out the relationships or the end goal and work back to the beginning. Use others as a sounding board!
+3. **Claude code can make you sloppy. Don't let it.**
+    1. I rarely set "auto-accept edits." I prefer to read the code it writes as it suggests edits to make sure I understand what the code does (and that it is doing the right thing!)
+    2. I would suggest writing your own Git issue comments instead of having Claude do it. Writing helps you think. If Claude always writes the comments you will quickly have no idea what is going on in the project. 
+    3. Make sure you take time to step back and look at the big picture frequently. It is easy to get wrapped up in the data and forget what is going on if you doing let yourself get up to speed with Claude.
 
-## Claude code can make you sloppy. Don't let it. 
-- at one point we had claude writing comments of what we had done in a session but I found that to quickly make me have no idea what was going on. So write your own comments unless its something tedious like building a markdown table that you don't want to do
-
-- try to explain everything you want claude to do (including where to put certain files or output)
-- can ask claude to ask you questions if it doesn't understand or explain back to you what you want it to do to make sure you understand.
 
 ## Workflow that works for me
-1. Open github desktop and Fetch Origin
-2. Open windows powershell or your computer terminal and cd into your project directory
-3. type "claude" and enter
-4. Begin coding (elaborate here on how to use claude)
-5. Every hour or so of work go back to github desktop and commit the changes you have made
-6. At the end of the session, push everything to git
+Any time I sit down to work, this is the workflow I follow:
+1. Open Github Desktop and click `Fetch origin`
+2. Open windows powershell (or your local computer terminal) and cd into your project directory
+    -  `cd "c:\Users\hlybbert\Documents\AgeVerification`
+3. Type `claude` and click enter
+4. Begin coding, following above tips on working with Claude
+5. Every hour or so of work go back to Github Desktop and commit the changes you have made and click `Push origin`. 
+6. At the end of your working session, push everything to git and add an issue comment of what was completed (if you finished mid-task, you do not need to add an issue comment).
