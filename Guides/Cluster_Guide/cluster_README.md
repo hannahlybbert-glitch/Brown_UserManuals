@@ -57,7 +57,7 @@ These commands are run in your Midway cluster terminal
 
 
 ## Notes
-1. **Conda environments** are where you can store packages that are used in your scripts. See our [`environment.yml`](https://github.com/mattbrownecon/AgeVerification/blob/main/environment.yml) file which you can replicate for your project.
+1. **Conda environments** are where you can store packages that are used in your scripts. See our [`environment.yml`](https://github.com/hannahlybbert-glitch/Brown_UserManuals/blob/main/AgeVerification/environment.yml) file which you can replicate for your project.
 
 2. **Updating conda environment**.
     * Open environment.yml file on your local computer and make needed edits, save file
