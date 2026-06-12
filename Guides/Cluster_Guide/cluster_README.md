@@ -6,14 +6,14 @@
 # Midway RCC Cluster Guide
 
 ## Overview
-Midway RCC is a computing cluster owned by UChicago which is where we store our large data and where we run code that uses large compute power. You will run most large jobs on Midway, but it does make sense to keep some smaller data files downloaded on your local computer so you can test smaller scripts without needing to synch everything to the cluster first. Note that we share the Midway memory and time resources with all UChicago resources, so depending on the time of day, certain jobs (especially those with large memory consumption) might sit in the queue for a while.
+Midway RCC is a computing cluster owned by UChicago which is where we store our large data and where we run code that uses large compute power. You will run most large jobs on Midway, but it does make sense to keep some smaller data files downloaded on your local computer so you can test smaller scripts without needing to sync everything to the cluster first. Note that we share the Midway memory and time resources with all UChicago researchers, so depending on the time of day, certain jobs (especially those with large memory consumption) might sit in the queue for a while.
 
 ## Opening a session on Midway
 Get into your project directory:
 1. Go to the [Midway home page](https://midway3-ondemand.rcc.uchicago.edu/pun/sys/dashboard)
 2. Sign in using your CNET ID and password. 
     - This password will be used to access the Midway terminal and sync code from your local computer, so make sure you know it well!
-3. Click the house icon that says "Home Directory". This will take you to your _own_ home directory which is _not_ where you will run jobs, you want to be in Matt's project directory.
+3. Click the house icon that says "Home Directory". This will take you to your _own_ home directory which is _not_ where you will run jobs, you want to be in Matt's project directory (next step).
 4. Click "Change Directory", type `/project/mattbrownecon/`, and click "OK"
 5. Click on your project folder and you should be able to see all the data, code, output, log files, etc. This is your main Midway-based project directory. 
 
@@ -31,8 +31,8 @@ Now that you are in the project directory, you are ready to open a session on Mi
 
 ## Running Jobs
 All of your code editing and building should take place on your local computer, but when it comes time to run the code on the cluster, follow these steps.
-1. Create an .sh script (see note #4 for how to create an .sh script)
-2. Sync local code to Midway (see note #5 for details)
+1. Create an .sh script (see note #4 below for how to create an .sh script)
+2. Sync local code to Midway by running the following command in your local terminal (see note #5 below for details)
 ```
 # Mac:
 rsync -avz --delete --no-g --chmod=D775,F775 code/ hlybbert@midway3.rcc.uchicago.edu:/project/mattbrownecon/AgeVerification/code/
@@ -43,6 +43,18 @@ wsl rsync -avz --delete --no-g --chmod=D775,F775 code/ hlybbert@midway3.rcc.uchi
 3. Open Midway3 cluster Terminal, cd into your project directory and activate your conda environment
 4. Type `sbatch code/{file path where your .sh script lives}/{name}.sh` and click enter
     - ex. `sbatch code/Aggregation/master.sh`
+5. Your job will start running if there are no errors.
+
+## Checking the status of your jobs:
+There are a couple of options for how to do this. Directly in the terminal, set a watch on the job, or check the log/error output files.
+1. To check the status of your job directly in the terminal use this command exactly: `squeue -u $USER`
+2. To set a watch on the job that updates automatically by running this command exactly: `watch -n 10 squeue -u $USER`
+3. Go to your main project directory back in the Midway interface and click "Logs" and you can view the output or error files for the job. Every time you run a job, a new output and error file will appear here. For the log file to update mid-run you need to close the file, refresh the page, and open the file again.
+
+Helpful indicators:
+PD - job is pending (i.e., in queue)
+R - job is running
+ST - job is complete, check the log output file to confirm.
 
 
 
@@ -53,8 +65,6 @@ These commands are run in your Midway cluster terminal
 - Setting a watch on the job: `watch -n 10 squeue -u $USER`
     - Shows the status of the current job and updates every 10 seconds (can change to however frequently you want it to update)
 - Cancel a job: `scancel {job_id}` (ex. `scancel 5447892`)
-
-Permission problems
 
 
 ## Notes
